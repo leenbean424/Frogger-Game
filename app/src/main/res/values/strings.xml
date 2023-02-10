@@ -2,5 +2,6 @@
     <string name="app_name">FroggerHome</string>
     <string name="frogger">Frogger</string>
     <string name="start">Start</string>
+    <string name="exit">Exit</string>
     <string name="page2">Page2</string>
 </resources>
