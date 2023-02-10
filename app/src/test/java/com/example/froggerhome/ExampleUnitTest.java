@@ -1,4 +1,4 @@
-package com.example.m1;
+package com.example.froggerhome;
 
 import org.junit.Test;
 
