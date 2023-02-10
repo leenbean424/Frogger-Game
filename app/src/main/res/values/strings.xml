@@ -3,4 +3,14 @@
     <string name="frogger">Frogger</string>
     <string name="start">Start</string>
     <string name="page2">Page2</string>
+
+    <string name="Frogger">dropDownMenuExample</string>
+    <string name="spinner_sample_program">Spinner Sample Program</string>
+    <string name="enter_how_much_cookies_you_want">Enter How Much Cookies You Want</string>
+    <string name="choose_your_difficulty">Choose Your Difficulty</string>
+    <string-array name="difficulty">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
 </resources>
