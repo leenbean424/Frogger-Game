@@ -12,6 +12,10 @@ public class game_screen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
+
+        TextView playerName = (TextView) findViewById(R.id.player_name) ;
+        playerName.setText("PN");
+
         TextView difficulty_level = (TextView) findViewById(R.id.difficulty_level);
         if (true) {
             difficulty_level.setText("Hard");
