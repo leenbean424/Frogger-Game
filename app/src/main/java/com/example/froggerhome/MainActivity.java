@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button startButton;
+    private Button exitButton;
 
 
     @Override
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         startButton = (Button)findViewById(R.id.startButton);
+        exitButton = (Button) findViewById(R.id.exitButton);
 
 
         startButton.setOnClickListener(new View.OnClickListener() {
@@ -24,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 openActivity2();
             }
+        });
+
+        exitButton.setOnClickListener(v -> {
+            finish();
         });
 
 
