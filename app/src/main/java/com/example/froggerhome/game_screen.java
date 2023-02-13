@@ -38,5 +38,13 @@ public class game_screen extends AppCompatActivity {
         score = (TextView) findViewById(R.id.score_value);
         score.setText("0");
 
+        sprite = (ImageView) findViewById(R.id.sprite);
+        if (initial_config.getCharacter().equals("1")) {
+            sprite.setImageResource(R.drawable.frog_char_1);
+        } else if (initial_config.getCharacter().equals("2")) {
+            sprite.setImageResource(R.drawable.frog_char_2);
+        } else if (initial_config.getCharacter().equals("3")) {
+            sprite.setImageResource(R.drawable.frog_char_3);
+        }
     }
 }
