@@ -43,8 +43,6 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 character = "1";
-                EditText name = (EditText)findViewById(R.id.editPersonName);
-                player_name = name.getText().toString();
                 openGame();
             }
         });
@@ -54,8 +52,6 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 character = "2";
-                EditText name = (EditText)findViewById(R.id.editPersonName);
-                player_name = name.getText().toString();
                 openGame();
             }
         });
@@ -65,16 +61,20 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 character = "3";
-                EditText name = (EditText)findViewById(R.id.editPersonName);
-                player_name = name.getText().toString();
                 openGame();
             }
         });
     }
 
     public void openGame() {
-        Intent intent = new Intent(this, game_screen.class);
-        startActivity(intent);
+        EditText name = (EditText)findViewById(R.id.editPersonName);
+        player_name = name.getText().toString();
+        if (player_name.trim().isEmpty()) {
+            Toast.makeText(getApplicationContext(), "Enter Valid Player Name", Toast.LENGTH_SHORT).show();
+        } else {
+            Intent intent = new Intent(this, game_screen.class);
+            startActivity(intent);
+        }
     }
 
     public static String getPlayer_name() {
