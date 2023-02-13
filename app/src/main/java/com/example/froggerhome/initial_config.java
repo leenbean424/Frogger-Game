@@ -29,29 +29,11 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
 
-        EditText name = (EditText)findViewById(R.id.editPersonName);
-        player_name = name.getText().toString();
-
         Spinner spinnerDifficulties=findViewById(R.id.difficulty_dropdown); //instantiate our spinner
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.difficulty, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDifficulties.setAdapter(adapter);
         spinnerDifficulties.setOnItemSelectedListener(this);
-        difficulty = spinnerDifficulties.getSelectedItem().toString();
-
-        switch (difficulty) {
-            case "Easy":
-                lives = "5";
-                break;
-            case "Medium":
-                lives = "3";
-                break;
-            case "Hard":
-                lives = "1";
-                break;
-            default:
-                break;
-        }
 
         Button char_1;
         Button char_2;
@@ -61,6 +43,8 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 character = "1";
+                EditText name = (EditText)findViewById(R.id.editPersonName);
+                player_name = name.getText().toString();
                 openGame();
             }
         });
@@ -70,6 +54,8 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 character = "2";
+                EditText name = (EditText)findViewById(R.id.editPersonName);
+                player_name = name.getText().toString();
                 openGame();
             }
         });
@@ -79,6 +65,8 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View view) {
                 character = "3";
+                EditText name = (EditText)findViewById(R.id.editPersonName);
+                player_name = name.getText().toString();
                 openGame();
             }
         });
@@ -107,6 +95,19 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         difficulty = adapterView.getItemAtPosition(i).toString();
+        switch (difficulty) {
+            case "Easy":
+                lives = "5";
+                break;
+            case "Medium":
+                lives = "3";
+                break;
+            case "Hard":
+                lives = "1";
+                break;
+            default:
+                break;
+        }
         Toast.makeText(adapterView.getContext(), difficulty, Toast.LENGTH_SHORT).show();
     }
 

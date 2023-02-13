@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,7 +23,6 @@ public class game_screen extends AppCompatActivity {
 
         playerName = (TextView) findViewById(R.id.player_name);
         playerName.setText(initial_config.getPlayer_name());
-        playerName.setText("YOU");
 
         difficultyLevel = (TextView) findViewById(R.id.difficulty_level);
         if (initial_config.getDifficulty().equals("Hard")) {
