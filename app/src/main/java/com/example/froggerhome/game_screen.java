@@ -22,13 +22,14 @@ public class game_screen extends AppCompatActivity {
 
         playerName = (TextView) findViewById(R.id.player_name);
         playerName.setText(initial_config.getPlayer_name());
+        playerName.setText("YOU");
 
         difficultyLevel = (TextView) findViewById(R.id.difficulty_level);
-        if (initial_config.getDifficulty().equalsIgnoreCase("Hard")) {
+        if (initial_config.getDifficulty().equals("Hard")) {
             difficultyLevel.setText("Hard");
-        } else if (initial_config.getDifficulty().equalsIgnoreCase("Medium")) {
+        } else if (initial_config.getDifficulty().equals("Medium")) {
             difficultyLevel.setText("Medium");
-        } else if (initial_config.getDifficulty().equalsIgnoreCase("Easy")){
+        } else if (initial_config.getDifficulty().equals("Easy")){
             difficultyLevel.setText("Easy");
         }
 
