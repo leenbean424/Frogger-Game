@@ -3,26 +3,40 @@ package com.example.froggerhome;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-public class game_screen extends AppCompatActivity {
-    private int score = 0;
-    private int lives = 3;
+import org.w3c.dom.Text;
 
+public class game_screen extends AppCompatActivity {
+    TextView playerName;
+    TextView difficultyLevel;
+    TextView livesCount;
+    TextView score;
+
+    ImageView sprite;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
-        TextView playerName = (TextView) findViewById(R.id.player_name) ;
-        playerName.setText("PN");
+        playerName = (TextView) findViewById(R.id.player_name);
+        playerName.setText(initial_config.getPlayer_name());
 
-        TextView difficulty_level = (TextView) findViewById(R.id.difficulty_level);
-        if (true) {
-            difficulty_level.setText("Hard");
-        } else if (true) {
-            difficulty_level.setText("Medium");
-        } else {
-            difficulty_level.setText("Easy");
+        difficultyLevel = (TextView) findViewById(R.id.difficulty_level);
+        if (initial_config.getDifficulty().equalsIgnoreCase("Hard")) {
+            difficultyLevel.setText("Hard");
+        } else if (initial_config.getDifficulty().equalsIgnoreCase("Medium")) {
+            difficultyLevel.setText("Medium");
+        } else if (initial_config.getDifficulty().equalsIgnoreCase("Easy")){
+            difficultyLevel.setText("Easy");
         }
+
+        livesCount = (TextView) findViewById(R.id.lives_count);
+        livesCount.setText(initial_config.getLives());
+
+        score = (TextView) findViewById(R.id.score_value);
+        score.setText("0");
+
     }
 }

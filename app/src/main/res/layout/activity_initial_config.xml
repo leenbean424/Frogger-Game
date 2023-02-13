@@ -98,6 +98,7 @@
         android:fontFamily="casual"
         android:hint="Player Name"
         android:inputType="textPersonName"
+        android:text="@string/Name"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
