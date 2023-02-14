@@ -18,7 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
-public class initial_config extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class initial_config extends AppCompatActivity
+        implements AdapterView.OnItemSelectedListener {
     private static String player_name;
     private static String difficulty;
     private static String lives;
@@ -29,8 +30,9 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_initial_config);
 
-        Spinner spinnerDifficulties=findViewById(R.id.difficulty_dropdown); //instantiate our spinner
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this, R.array.difficulty, android.R.layout.simple_spinner_item);
+        Spinner spinnerDifficulties = findViewById(R.id.difficulty_dropdown);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.difficulty, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerDifficulties.setAdapter(adapter);
         spinnerDifficulties.setOnItemSelectedListener(this);
@@ -38,7 +40,7 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
         Button char_1;
         Button char_2;
         Button char_3;
-        char_1 = (Button)findViewById(R.id.char_1);
+        char_1 = (Button) findViewById(R.id.char_1);
         char_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +49,7 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        char_2 = (Button)findViewById(R.id.char_2);
+        char_2 = (Button) findViewById(R.id.char_2);
         char_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,7 +58,7 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
             }
         });
 
-        char_3 = (Button)findViewById(R.id.char_3);
+        char_3 = (Button) findViewById(R.id.char_3);
         char_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,10 +69,11 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
     }
 
     public void openGame() {
-        EditText name = (EditText)findViewById(R.id.editPersonName);
+        EditText name = (EditText) findViewById(R.id.editPersonName);
         player_name = name.getText().toString();
         if (player_name.trim().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Enter Valid Player Name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Enter Valid Player Name",
+                    Toast.LENGTH_SHORT).show();
         } else {
             Intent intent = new Intent(this, game_screen.class);
             startActivity(intent);
@@ -80,6 +83,7 @@ public class initial_config extends AppCompatActivity implements AdapterView.OnI
     public static String getPlayer_name() {
         return player_name;
     }
+
     public static String getDifficulty() {
         return difficulty;
     }

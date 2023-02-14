@@ -17,6 +17,7 @@ public class game_screen extends AppCompatActivity {
     TextView score;
 
     ImageView sprite;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
@@ -29,7 +30,7 @@ public class game_screen extends AppCompatActivity {
             difficultyLevel.setText("Hard");
         } else if (initial_config.getDifficulty().equals("Medium")) {
             difficultyLevel.setText("Medium");
-        } else if (initial_config.getDifficulty().equals("Easy")){
+        } else if (initial_config.getDifficulty().equals("Easy")) {
             difficultyLevel.setText("Easy");
         }
 

@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startButton = (Button)findViewById(R.id.startButton);
+        startButton = (Button) findViewById(R.id.startButton);
         exitButton = (Button) findViewById(R.id.exitButton);
 
 
@@ -33,9 +33,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
     }
+
     public void openActivity2() {
         Intent intent = new Intent(this, initial_config.class);
         startActivity(intent);
