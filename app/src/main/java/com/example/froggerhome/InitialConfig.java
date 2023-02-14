@@ -2,25 +2,19 @@ package com.example.froggerhome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
-public class initial_config extends AppCompatActivity
+public class InitialConfig extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener {
-    private static String player_name;
+    private static String playerName;
     private static String difficulty;
     private static String lives;
     private static String character;
@@ -37,11 +31,11 @@ public class initial_config extends AppCompatActivity
         spinnerDifficulties.setAdapter(adapter);
         spinnerDifficulties.setOnItemSelectedListener(this);
 
-        Button char_1;
-        Button char_2;
-        Button char_3;
-        char_1 = (Button) findViewById(R.id.char_1);
-        char_1.setOnClickListener(new View.OnClickListener() {
+        Button char1;
+        Button char2;
+        Button char3;
+        char1 = (Button) findViewById(R.id.char_1);
+        char1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 character = "1";
@@ -49,8 +43,8 @@ public class initial_config extends AppCompatActivity
             }
         });
 
-        char_2 = (Button) findViewById(R.id.char_2);
-        char_2.setOnClickListener(new View.OnClickListener() {
+        char2 = (Button) findViewById(R.id.char_2);
+        char2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 character = "2";
@@ -58,8 +52,8 @@ public class initial_config extends AppCompatActivity
             }
         });
 
-        char_3 = (Button) findViewById(R.id.char_3);
-        char_3.setOnClickListener(new View.OnClickListener() {
+        char3 = (Button) findViewById(R.id.char_3);
+        char3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 character = "3";
@@ -70,18 +64,18 @@ public class initial_config extends AppCompatActivity
 
     public void openGame() {
         EditText name = (EditText) findViewById(R.id.editPersonName);
-        player_name = name.getText().toString();
-        if (player_name.trim().isEmpty()) {
+        playerName = name.getText().toString();
+        if (playerName.trim().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Enter Valid Player Name",
                     Toast.LENGTH_SHORT).show();
         } else {
-            Intent intent = new Intent(this, game_screen.class);
+            Intent intent = new Intent(this, GameScreen.class);
             startActivity(intent);
         }
     }
 
-    public static String getPlayer_name() {
-        return player_name;
+    public static String getPlayerName() {
+        return playerName;
     }
 
     public static String getDifficulty() {
@@ -100,17 +94,17 @@ public class initial_config extends AppCompatActivity
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         difficulty = adapterView.getItemAtPosition(i).toString();
         switch (difficulty) {
-            case "Easy":
-                lives = "5";
-                break;
-            case "Medium":
-                lives = "3";
-                break;
-            case "Hard":
-                lives = "1";
-                break;
-            default:
-                break;
+        case "Easy":
+            lives = "5";
+            break;
+        case "Medium":
+            lives = "3";
+            break;
+        case "Hard":
+            lives = "1";
+            break;
+        default:
+            break;
         }
         Toast.makeText(adapterView.getContext(), difficulty, Toast.LENGTH_SHORT).show();
     }

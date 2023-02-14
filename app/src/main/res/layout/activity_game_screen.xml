@@ -7,7 +7,7 @@
     android:background="#B4D5A3"
     android:scaleY="1"
     android:visibility="visible"
-    tools:context=".game_screen">
+    tools:context=".GameScreen">
 
     <TextView
         android:id="@+id/name"

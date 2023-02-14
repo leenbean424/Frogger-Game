@@ -7,7 +7,7 @@
     android:background="#B4D5A3"
     android:scaleY="1"
     android:visibility="visible"
-    tools:context=".initial_config">
+    tools:context=".InitialConfig">
 
     <Spinner
         android:id="@+id/difficulty_dropdown"
