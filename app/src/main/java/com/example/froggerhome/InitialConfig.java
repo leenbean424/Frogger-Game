@@ -70,7 +70,7 @@ public class InitialConfig extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Enter Valid Player Name",
                     Toast.LENGTH_SHORT).show();
         } else {
-            player = new Player(playerName,lives,character);
+            player = new Player(playerName,lives, character);
             Intent intent = new Intent(this, GameScreen.class);
             intent.putExtra("playerName", player.getPlayerName());
             intent.putExtra("playerLives", player.getLives());
