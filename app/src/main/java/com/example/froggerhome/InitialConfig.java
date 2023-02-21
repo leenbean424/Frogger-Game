@@ -14,10 +14,11 @@ import android.widget.Button;
 
 public class InitialConfig extends AppCompatActivity
         implements AdapterView.OnItemSelectedListener {
-    private static String playerName;
     private static String difficulty;
-    private static String lives;
-    private static String character;
+    private String lives;
+    private String character;
+    private String playerName;
+    private Player player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,30 +65,29 @@ public class InitialConfig extends AppCompatActivity
 
     public void openGame() {
         EditText name = (EditText) findViewById(R.id.editPersonName);
-        playerName = name.getText().toString();
-        if (playerName.trim().isEmpty()) {
+        playerName = name.getText().toString().trim();
+        if (isNameValid(playerName)) {
             Toast.makeText(getApplicationContext(), "Enter Valid Player Name",
                     Toast.LENGTH_SHORT).show();
         } else {
+            player = new Player(playerName,lives,character);
             Intent intent = new Intent(this, GameScreen.class);
+            intent.putExtra("playerName", player.getPlayerName());
+            intent.putExtra("playerLives", player.getLives());
+            intent.putExtra("playerChar", player.getCharacter());
             startActivity(intent);
         }
     }
 
-    public static String getPlayerName() {
-        return playerName;
+    public boolean isNameValid(String name) {
+        if (name == null) {
+            return false;
+        }
+        return name.trim().equalsIgnoreCase("");
     }
 
     public static String getDifficulty() {
         return difficulty;
-    }
-
-    public static String getLives() {
-        return lives;
-    }
-
-    public static String getCharacter() {
-        return character;
     }
 
     @Override
