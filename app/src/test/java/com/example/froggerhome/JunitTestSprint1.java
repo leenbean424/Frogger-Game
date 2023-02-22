@@ -3,18 +3,14 @@ package com.example.froggerhome;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-
-
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+
 
 
 public class JunitTestSprint1 {
-    public static String expected = "Default Player";
-    public Player newPlayer;
+    private static String expected = "Default Player";
+    private Player newPlayer;
+
 
     @Before
     public void setUp() {
@@ -22,15 +18,14 @@ public class JunitTestSprint1 {
     }
 
 
-
     @DisplayName("whitespaceOnlyTest")
     @Test
     public void whitespaceOnlyTest() {
-        newPlayer.setPlayerName("  ");
+        assertTrue(String.valueOf(newPlayer.isNameValid(newPlayer.getPlayerName())), true);
+        newPlayer.setPlayerName("   ");
 
         assertTrue(String.valueOf(newPlayer.isNameValid(newPlayer.getPlayerName())), true);
         assertEquals(expected, newPlayer.getPlayerName());
-
     }
 
     @DisplayName("EmptyTest")
@@ -50,7 +45,6 @@ public class JunitTestSprint1 {
 
         assertTrue(String.valueOf(newPlayer.isNameValid(newPlayer.getPlayerName())), true);
         assertEquals(expected, newPlayer.getPlayerName());
-
 
     }
 
