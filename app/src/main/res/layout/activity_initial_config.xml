@@ -7,7 +7,7 @@
     android:background="#B4D5A3"
     android:scaleY="1"
     android:visibility="visible"
-    tools:context=".initial_config">
+    tools:context=".InitialConfig">
 
     <Spinner
         android:id="@+id/difficulty_dropdown"
@@ -47,8 +47,8 @@
         android:layout_height="wrap_content"
         android:fontFamily="casual"
         android:text="@string/choose_your_character"
-        android:textStyle="bold"
         android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

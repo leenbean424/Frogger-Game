@@ -9,13 +9,18 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button startButton;
+    private Button exitButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        startButton = (Button)findViewById(R.id.startButton);
+        startButton = (Button) findViewById(R.id.startButton);
+        exitButton = (Button) findViewById(R.id.exitButton);
+
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -23,11 +28,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        exitButton.setOnClickListener(v -> {
+            finish();
+        });
+
 
     }
+
     public void openActivity2() {
-        Intent intent = new Intent(this, initial_config.class);
+        Intent intent = new Intent(this, InitialConfig.class);
         startActivity(intent);
+        finish();
     }
 
 

@@ -2,49 +2,54 @@ package com.example.froggerhome;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
 
-public class game_screen extends AppCompatActivity {
-    TextView playerName;
-    TextView difficultyLevel;
-    TextView livesCount;
-    TextView score;
+public class GameScreen extends AppCompatActivity {
+    private TextView playerName;
+    private TextView difficultyLevel;
+    private TextView livesCount;
+    private TextView score;
 
-    ImageView sprite;
+    private ImageView sprite;
+    private Player player;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
+        Intent intent = getIntent();
+        player = new Player(intent.getStringExtra("playerName"),
+                intent.getStringExtra("playerLives"),
+                intent.getStringExtra("playerChar"));
+
         playerName = (TextView) findViewById(R.id.player_name);
-        playerName.setText(initial_config.getPlayer_name());
+        playerName.setText(player.getPlayerName());
 
         difficultyLevel = (TextView) findViewById(R.id.difficulty_level);
-        if (initial_config.getDifficulty().equals("Hard")) {
+        if (InitialConfig.getDifficulty().equals("Hard")) {
             difficultyLevel.setText("Hard");
-        } else if (initial_config.getDifficulty().equals("Medium")) {
+        } else if (InitialConfig.getDifficulty().equals("Medium")) {
             difficultyLevel.setText("Medium");
-        } else if (initial_config.getDifficulty().equals("Easy")){
+        } else if (InitialConfig.getDifficulty().equals("Easy")) {
             difficultyLevel.setText("Easy");
         }
 
         livesCount = (TextView) findViewById(R.id.lives_count);
-        livesCount.setText(initial_config.getLives());
+        livesCount.setText(player.getLives());
 
         score = (TextView) findViewById(R.id.score_value);
         score.setText("0");
 
         sprite = (ImageView) findViewById(R.id.sprite);
-        if (initial_config.getCharacter().equals("1")) {
+        if (player.getCharacter().equals("1")) {
             sprite.setImageResource(R.drawable.frog_char_1);
-        } else if (initial_config.getCharacter().equals("2")) {
+        } else if (player.getCharacter().equals("2")) {
             sprite.setImageResource(R.drawable.frog_char_2);
-        } else if (initial_config.getCharacter().equals("3")) {
+        } else if (player.getCharacter().equals("3")) {
             sprite.setImageResource(R.drawable.frog_char_3);
         }
     }
