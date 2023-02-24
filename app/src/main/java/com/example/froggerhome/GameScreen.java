@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 
 public class GameScreen extends AppCompatActivity {
     private TextView playerName;
@@ -16,6 +19,8 @@ public class GameScreen extends AppCompatActivity {
 
     private ImageView sprite;
     private Player player;
+
+    private LinearLayout screen;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,5 +57,32 @@ public class GameScreen extends AppCompatActivity {
         } else if (player.getCharacter().equals("3")) {
             sprite.setImageResource(R.drawable.frog_char_3);
         }
+        screen = (LinearLayout) findViewById(R.id.screen);
+        screen.setOnTouchListener(new OnSwipeListener(GameScreen.this) {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return super.onTouch(v, event);
+            }
+            @Override
+            public void onSwipeUp() {
+                sprite.setRotation(180);
+                sprite.setY(sprite.getY() + 100);
+            }
+            @Override
+            public void onSwipeDown() {
+                sprite.setRotation(0);
+                sprite.setY(sprite.getY() - 100);
+            }
+            @Override
+            public void onSwipeLeft() {
+                sprite.setRotation(270);
+                sprite.setX(sprite.getX() - 100);
+            }
+            @Override
+            public void onSwipeRight() {
+                sprite.setRotation(90);
+                sprite.setX(sprite.getX() + 100);
+            }
+        });
     }
 }
