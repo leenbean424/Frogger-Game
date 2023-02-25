@@ -22,7 +22,7 @@
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.021" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/player_name"
@@ -32,12 +32,12 @@
         android:text="player name"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.253"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.02" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/difficulty"
@@ -136,17 +136,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.11" />
 
-    <ImageView
-        android:id="@+id/sprite"
-        android:layout_width="50dp"
-        android:layout_height="57dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.989"
-        app:srcCompat="@drawable/frog_char_1" />
+<!--    <ImageView-->
+<!--        android:id="@+id/sprite"-->
+<!--        android:layout_width="50dp"-->
+<!--        android:layout_height="57dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.532"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.989"-->
+<!--        app:srcCompat="@drawable/frog_char_1" />-->
 
     <LinearLayout
         android:id="@+id/screen"
@@ -157,6 +157,46 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"></LinearLayout>
+        app:layout_constraintVertical_bias="1.0">
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="match_parent"
+            android:layout_height="137dp"
+            app:srcCompat="@drawable/goal" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="match_parent"
+            android:layout_height="179dp"
+            android:layout_marginTop="-20dp"
+            app:srcCompat="@drawable/river" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_marginTop="-30dp"
+            app:srcCompat="@drawable/safezone" />
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="match_parent"
+            android:layout_height="232dp"
+            android:layout_marginTop="-30dp"
+            app:srcCompat="@drawable/road" />
+
+        <ImageView
+            android:id="@+id/sprite"
+            android:layout_width="50dp"
+            android:layout_height="57dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.532"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.989"
+            app:srcCompat="@drawable/frog_char_1" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
