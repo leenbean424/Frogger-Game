@@ -64,24 +64,32 @@ public class GameScreen extends AppCompatActivity {
                 return super.onTouch(v, event);
             }
             @Override
-            public void onSwipeUp() {
-                sprite.setRotation(180);
-                sprite.setY(sprite.getY() + 100);
+            public void onSwipeUp() { // goes down
+                if (sprite.getY() > 3.0) {
+                    sprite.setRotation(0);
+                    sprite.setY(sprite.getY() - 100);
+                }
             }
             @Override
-            public void onSwipeDown() {
-                sprite.setRotation(0);
-                sprite.setY(sprite.getY() - 100);
+            public void onSwipeDown() { // goes up
+                if (sprite.getY() < 1902.0) {
+                    sprite.setRotation(180);
+                    sprite.setY(sprite.getY() + 100);
+                }
             }
             @Override
-            public void onSwipeLeft() {
-                sprite.setRotation(270);
-                sprite.setX(sprite.getX() - 100);
+            public void onSwipeLeft() { // goes left
+                if (sprite.getX() - 100 > 3) {
+                    sprite.setRotation(270);
+                    sprite.setX(sprite.getX() - 100);
+                }
             }
             @Override
-            public void onSwipeRight() {
-                sprite.setRotation(90);
-                sprite.setX(sprite.getX() + 100);
+            public void onSwipeRight() { // goes right
+                if (sprite.getX() + 100 < 1334) {
+                    sprite.setRotation(90);
+                    sprite.setX(sprite.getX() + 100);
+                }
             }
         });
     }
