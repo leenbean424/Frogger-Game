@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 
 
 
-public class JunitTestSprint1 {
+public class  JunitTestSprint1 {
     private static String expected = "Default Player";
     private Player newPlayer;
 

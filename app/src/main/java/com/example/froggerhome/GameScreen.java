@@ -63,20 +63,23 @@ public class GameScreen extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 return super.onTouch(v, event);
             }
+
             @Override
-            public void onSwipeUp() { // goes down
+            public void onSwipeDown() { // goes down
                 if (sprite.getY() > 3.0) {
                     sprite.setRotation(0);
                     sprite.setY(sprite.getY() - 100);
                 }
             }
+
             @Override
-            public void onSwipeDown() { // goes up
+            public void onSwipeUp() { // goes up
                 if (sprite.getY() < 1902.0) {
                     sprite.setRotation(180);
                     sprite.setY(sprite.getY() + 100);
                 }
             }
+
             @Override
             public void onSwipeLeft() { // goes left
                 if (sprite.getX() - 100 > 3) {
@@ -84,6 +87,7 @@ public class GameScreen extends AppCompatActivity {
                     sprite.setX(sprite.getX() - 100);
                 }
             }
+
             @Override
             public void onSwipeRight() { // goes right
                 if (sprite.getX() + 100 < 1334) {
