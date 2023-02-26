@@ -24,15 +24,7 @@ public class OnSwipeListener implements OnTouchListener {
         return gestureDetector.onTouchEvent(event);
     }
 
-    public void onSwipeUp() {
-    }
-    public void onSwipeDown() {
-    }
-    public void onSwipeLeft() {
-    }
-    public void onSwipeRight() {
-    }
-    public final class GestureListener extends SimpleOnGestureListener {
+    public class GestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDown(@NonNull MotionEvent e) {
             return true;
@@ -47,29 +39,29 @@ public class OnSwipeListener implements OnTouchListener {
             return onSwipe(getDirection(x1, y1, x2, y2));
         }
 
-        public boolean onSwipe(Direction direction) {
-            if (direction == Direction.UP) {
+        public boolean onSwipe(OnSwipeListener.Direction direction) {
+            if (direction == OnSwipeListener.Direction.UP) {
                 onSwipeUp();
                 return true;
             }
-            if (direction == Direction.DOWN) {
+            if (direction == OnSwipeListener.Direction.DOWN) {
                 onSwipeDown();
                 return true;
             }
-            if (direction == Direction.LEFT) {
+            if (direction == OnSwipeListener.Direction.LEFT) {
                 onSwipeLeft();
                 return true;
             }
-            if (direction == Direction.RIGHT) {
+            if (direction == OnSwipeListener.Direction.RIGHT) {
                 onSwipeRight();
                 return true;
             }
             return false;
         }
 
-        public Direction getDirection(float x1, float y1, float x2, float y2) {
+        public OnSwipeListener.Direction getDirection(float x1, float y1, float x2, float y2) {
             double angle = getAngle(x1, y1, x2, y2);
-            return Direction.determineDirection(angle);
+            return OnSwipeListener.Direction.determineDirection(angle);
         }
 
         public double getAngle(float x1, float y1, float x2, float y2) {
@@ -77,6 +69,16 @@ public class OnSwipeListener implements OnTouchListener {
             return (rad * 180 / Math.PI + 180) % 360;
         }
     }
+
+    public void onSwipeUp() {
+    }
+    public void onSwipeDown() {
+    }
+    public void onSwipeLeft() {
+    }
+    public void onSwipeRight() {
+    }
+
 
     public enum Direction {
         UP,
