@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import static org.junit.Assert.*;
 
 
-
+@DisplayName("Sprint 1 Test Cases")
 public class  JunitTestSprint1 {
     private static String expected = "Default Player";
     private Player newPlayer;
@@ -46,6 +46,30 @@ public class  JunitTestSprint1 {
         assertTrue(String.valueOf(newPlayer.isNameValid(newPlayer.getPlayerName())), true);
         assertEquals(expected, newPlayer.getPlayerName());
 
+    }
+
+    @DisplayName("Easy mode selected, expected lives 5")
+    @Test
+    public void easyModeLivesTest() {
+        newPlayer.selectDifficulty("Easy");
+
+        assertEquals("5", newPlayer.getLives());
+    }
+
+    @DisplayName("Medium mode selected, expected lives 3")
+    @Test
+    public void mediumModeLivesTest() {
+        newPlayer.selectDifficulty("Medium");
+
+        assertEquals("3", newPlayer.getLives());
+    }
+
+    @DisplayName("Hard mode selected, expected lives 1")
+    @Test
+    public void hardModeLivesTest() {
+        newPlayer.selectDifficulty("Hard");
+
+        assertEquals("1", newPlayer.getLives());
     }
 
 }
