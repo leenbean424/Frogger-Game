@@ -70,7 +70,7 @@ public class InitialConfig extends AppCompatActivity
             Toast.makeText(getApplicationContext(), "Enter Valid Player Name",
                     Toast.LENGTH_SHORT).show();
         } else {
-            player = new Player(playerName,lives, character);
+            player = new Player(playerName, lives, character);
             Intent intent = new Intent(this, GameScreen.class);
             intent.putExtra("playerName", player.getPlayerName());
             intent.putExtra("playerLives", player.getLives());
@@ -93,19 +93,7 @@ public class InitialConfig extends AppCompatActivity
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         difficulty = adapterView.getItemAtPosition(i).toString();
-        switch (difficulty) {
-        case "Easy":
-            lives = "5";
-            break;
-        case "Medium":
-            lives = "3";
-            break;
-        case "Hard":
-            lives = "1";
-            break;
-        default:
-            break;
-        }
+
         Toast.makeText(adapterView.getContext(), difficulty, Toast.LENGTH_SHORT).show();
     }
 

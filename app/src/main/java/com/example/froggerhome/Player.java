@@ -1,13 +1,11 @@
 package com.example.froggerhome;
 
-import android.widget.EditText;
-
 public class Player {
     private String lives;
     private String character;
     private String playerName;
 
-    public Player(String playerName, String lives, String character){
+    public Player(String playerName, String lives, String character) {
         setPlayerName(playerName);
         this.lives = lives;
         this.character = character;
@@ -38,6 +36,23 @@ public class Player {
             return false;
         }
         return !name.trim().equalsIgnoreCase("");
+    }
+
+    public String selectDifficulty(String diff) {
+        switch (diff) {
+        case "Easy":
+            lives = "5";
+            break;
+        case "Medium":
+            lives = "3";
+            break;
+        case "Hard":
+            lives = "1";
+            break;
+        default:
+            break;
+        }
+        return lives;
     }
 
     public void setLives(String lives) {

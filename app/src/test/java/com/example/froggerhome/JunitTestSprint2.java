@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 
 import org.mockito.Mockito;
 
+@DisplayName("Sprint 2 Test Cases")
 public class JunitTestSprint2 {
 
     @DisplayName("rightDirectionTest")
@@ -50,6 +51,48 @@ public class JunitTestSprint2 {
         assertEquals(left2, expected);
         assertTrue(String.valueOf(gestureListener.onSwipe(expected))
                 ,gestureListener.onSwipe(left2));
+    }
+
+    @DisplayName("upDirectionTest")
+    @Test
+    public void upDirectionTest() {
+        OnSwipeListener.Direction up1 = OnSwipeListener.Direction.determineDirection(50);
+        OnSwipeListener.Direction up2 = OnSwipeListener.Direction.determineDirection(120);
+
+        OnSwipeListener.Direction expected = OnSwipeListener.Direction.UP;
+        OnSwipeListener.GestureListener gestureListener =
+                Mockito.mock(OnSwipeListener.GestureListener.class);
+
+        Mockito.when(gestureListener.onSwipe(up1)).thenReturn(true);
+        assertEquals(up1, expected);
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
+                ,gestureListener.onSwipe(up1));
+
+        Mockito.when(gestureListener.onSwipe(up2)).thenReturn(true);
+        assertEquals(up2, expected);
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
+                ,gestureListener.onSwipe(up2));
+    }
+
+    @DisplayName("downDirectionTest")
+    @Test
+    public void downDirectionTest() {
+        OnSwipeListener.Direction down1 = OnSwipeListener.Direction.determineDirection(230);
+        OnSwipeListener.Direction down2 = OnSwipeListener.Direction.determineDirection(305);
+
+        OnSwipeListener.Direction expected = OnSwipeListener.Direction.DOWN;
+        OnSwipeListener.GestureListener gestureListener =
+                Mockito.mock(OnSwipeListener.GestureListener.class);
+
+        Mockito.when(gestureListener.onSwipe(down1)).thenReturn(true);
+        assertEquals(down1, expected);
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
+                ,gestureListener.onSwipe(down1));
+
+        Mockito.when(gestureListener.onSwipe(down2)).thenReturn(true);
+        assertEquals(down2, expected);
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
+                ,gestureListener.onSwipe(down2));
     }
 
 }

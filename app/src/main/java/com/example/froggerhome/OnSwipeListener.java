@@ -2,7 +2,6 @@ package com.example.froggerhome;
 
 import android.content.Context;
 import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -12,6 +11,15 @@ import androidx.annotation.NonNull;
 
 public class OnSwipeListener implements OnTouchListener {
     private GestureDetector gestureDetector;
+
+    public void onSwipeUp() {
+    }
+    public void onSwipeDown() {
+    }
+    public void onSwipeLeft() {
+    }
+    public void onSwipeRight() {
+    }
 
     public OnSwipeListener(Context context) {
         gestureDetector = new GestureDetector(context, new GestureListener());
@@ -31,7 +39,8 @@ public class OnSwipeListener implements OnTouchListener {
         }
 
         @Override
-        public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+        public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX,
+                               float velocityY) {
             float x1 = e1.getX();
             float y1 = e1.getY();
             float x2 = e2.getX();
@@ -69,16 +78,6 @@ public class OnSwipeListener implements OnTouchListener {
             return (rad * 180 / Math.PI + 180) % 360;
         }
     }
-
-    public void onSwipeUp() {
-    }
-    public void onSwipeDown() {
-    }
-    public void onSwipeLeft() {
-    }
-    public void onSwipeRight() {
-    }
-
 
     public enum Direction {
         UP,
