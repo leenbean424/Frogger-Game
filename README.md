@@ -1,18 +1,21 @@
 # Group47_Frogger
 This is the github repository for CS 2340 Group 47's Frogger project to be implemented with Android Studio.
 
-We are currently working on Sprint 1 which entails:
-1. Start Screen 
-    o A way to start the game 
-    o A way to quit the game 
-2. Initial Configuration Screen 
-    o An input for player name 
-        ▪ Name cannot be whitespace-only, empty, or null 
-    o A way to choose difficulty of the game 
-    o A way to pick a character sprite to represent the player 
-    o A way to continue to the game screen 
-3. Game Screen 
-    o This screen is where the actual game will take place. This is where most of the functionality in later sprints is implemented. For now, the screen will: 
-        ▪ Display starting lives 
-        ▪ Player name 
-        ▪ Display player character sprite depending on the selected character 
+
+Sprint 2 
+
+    - Make the player able to move up, down, left, and right. It may be a good idea to simplify things 
+    by using a grid or tile system to represent all possible locations of the player. 
+        o The player should not be able to move off the screen. 
+		
+    - Generate safe tiles, road tiles, and river tiles. Rivers and roads should extend across the width of 
+    the screen.
+        o Roads and rivers should be of varying widths. For example, the player may have to cross 
+        a 2-tile river or a 5-tile river, assuming a tile system is used. 
+        o Water tile functionality will be implemented in a future sprint. 
+		
+    - Implement a goal tile 
+        o Should be located at the opposite end of the map with respect to the player. 
+        o The functionality associated with the goal tile (for example, going to the win screen) will 
+        be implemented in a future sprint. For now, simply have the goal tile display. 
+
