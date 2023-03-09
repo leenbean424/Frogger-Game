@@ -1,14 +1,23 @@
 package com.example.froggerhome;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.text.BreakIterator;
+
+
+
 
 public class GameScreen extends AppCompatActivity {
     private TextView playerName;
@@ -17,10 +26,44 @@ public class GameScreen extends AppCompatActivity {
     private TextView score;
 
     private ImageView sprite;
+    private ImageView carImage1;
+    private ImageView carImage2;
+    private ImageView carImage3;
     private Player player;
 
     private LinearLayout screen;
 
+    //timer starts at 0
+    //TextView timerTextView;
+    long startTime = 0;
+
+    //runs without a timer by reposting this handler at the end of the runnable
+    Handler timerHandler = new Handler(Looper.getMainLooper());
+    Runnable timerRunnable = new Runnable() {
+
+        @Override
+        public void run() {
+
+            //sets up timer
+            long millis = System.currentTimeMillis() - startTime;
+            int seconds = (int) (millis / 1000);
+            int minutes = seconds / 60;
+            seconds = seconds % 60;
+
+
+            //moving cars
+            carImage1.setX(carImage1.getX() + 10);
+            carImage2.setX(carImage2.getX() - 20);
+            carImage3.setX(carImage3.getX() + 16);
+
+            //delay that controls how often each callback is made
+            timerHandler.postDelayed(this, 50);
+
+        }
+    };
+
+
+    @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
@@ -56,8 +99,26 @@ public class GameScreen extends AppCompatActivity {
         } else if (player.getCharacter().equals("3")) {
             sprite.setImageResource(R.drawable.frog_char_3);
         }
+
+
+        //set up of cars images
+        carImage1 = (ImageView) findViewById(R.id.car1);
+        carImage2 = (ImageView) findViewById(R.id.car2);
+        carImage3 = (ImageView) findViewById(R.id.car3);
+
+
+
+        //calling timerhandler function
+        startTime = System.currentTimeMillis();
+        timerHandler.postDelayed(timerRunnable, 0);
+
+
+
         screen = (LinearLayout) findViewById(R.id.screen);
+
+
         screen.setOnTouchListener(new OnSwipeListener(GameScreen.this) {
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return super.onTouch(v, event);
@@ -94,6 +155,11 @@ public class GameScreen extends AppCompatActivity {
                     sprite.setX(sprite.getX() + 100);
                 }
             }
+
         });
+
     }
+
+
+
 }

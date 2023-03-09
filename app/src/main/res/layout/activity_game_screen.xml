@@ -17,7 +17,6 @@
         android:text="Name: "
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/sprite"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.046"
         app:layout_constraintStart_toStartOf="parent"
@@ -148,27 +147,27 @@
         app:layout_constraintVertical_bias="1.0">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/goal"
             android:layout_width="match_parent"
             android:layout_height="137dp"
             app:srcCompat="@drawable/goal" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/river"
             android:layout_width="match_parent"
             android:layout_height="179dp"
             android:layout_marginTop="-20dp"
             app:srcCompat="@drawable/river" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/safezone"
             android:layout_width="match_parent"
             android:layout_height="75dp"
             android:layout_marginTop="-30dp"
             app:srcCompat="@drawable/safezone" />
 
         <ImageView
-            android:id="@+id/imageView7"
+            android:id="@+id/road"
             android:layout_width="match_parent"
             android:layout_height="232dp"
             android:layout_marginTop="-30dp"
@@ -186,6 +185,37 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0"
             app:srcCompat="@drawable/frog_char_1" />
+
+        <ImageView
+            android:id="@+id/car1"
+            android:layout_width="80dp"
+            android:layout_height="100dp"
+            android:translationY="-268dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/cars1"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/car2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:translationX="350dp"
+            android:translationY="-317dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/cars2"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/car3"
+            android:layout_width="90dp"
+            android:layout_height="100dp"
+            android:translationY="-368dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/cars3"
+            tools:visibility="visible" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
