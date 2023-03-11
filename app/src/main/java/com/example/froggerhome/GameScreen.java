@@ -33,6 +33,7 @@ public class GameScreen extends AppCompatActivity {
 
     private LinearLayout screen;
 
+
     //timer starts at 0
     //TextView timerTextView;
     long startTime = 0;
@@ -89,7 +90,7 @@ public class GameScreen extends AppCompatActivity {
         livesCount.setText(player.getLives());
 
         score = (TextView) findViewById(R.id.score_value);
-        score.setText("0");
+        score.setText(String.valueOf(player.getScore()));
 
         sprite = (ImageView) findViewById(R.id.sprite);
         if (player.getCharacter().equals("1")) {
@@ -125,18 +126,42 @@ public class GameScreen extends AppCompatActivity {
             }
 
             @Override
-            public void onSwipeDown() { // goes down
-                if (sprite.getY() > 3.0) {
-                    sprite.setRotation(0);
-                    sprite.setY(sprite.getY() - 100);
-                }
-            }
-
-            @Override
             public void onSwipeUp() { // goes up
                 if (sprite.getY() < 1902.0) {
                     sprite.setRotation(180);
                     sprite.setY(sprite.getY() + 100);
+                    player.setCurrentPositionY(player.getCurrentPositionY() - 1);
+                }
+                if (player.getCurrentPositionY() > player.getMaxPositionY()) {
+                    player.setMaxPositionY(player.getCurrentPositionY());
+                    if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
+                        player.setScore(player.getScore() + 20);
+                    } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
+                        player.setScore(player.getScore() + 30);
+                    } else {
+                        player.setScore(player.getScore() + 10);
+                    }
+                    score.setText(((Integer)player.getScore()).toString());
+                }
+            }
+
+            @Override
+            public void onSwipeDown() { // goes down
+                if (sprite.getY() > 3.0) {
+                    sprite.setRotation(0);
+                    sprite.setY(sprite.getY() - 100);
+                    player.setCurrentPositionY(player.getCurrentPositionY() + 1);
+                }
+                if (player.getCurrentPositionY() > player.getMaxPositionY()) {
+                    player.setMaxPositionY(player.getCurrentPositionY());
+                    if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
+                        player.setScore(player.getScore() + 20);
+                    } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
+                        player.setScore(player.getScore() + 30);
+                    } else {
+                        player.setScore(player.getScore() + 10);
+                    }
+                    score.setText(((Integer)player.getScore()).toString());
                 }
             }
 

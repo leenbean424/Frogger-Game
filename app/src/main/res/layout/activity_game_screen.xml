@@ -90,8 +90,8 @@
 
     <TextView
         android:id="@+id/score_value"
-        android:layout_width="22dp"
-        android:layout_height="26dp"
+        android:layout_width="39dp"
+        android:layout_height="24dp"
         android:fontFamily="casual"
         android:text="0"
         android:textSize="20sp"

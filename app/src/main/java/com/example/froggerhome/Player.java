@@ -5,6 +5,11 @@ public class Player {
     private String character;
     private String playerName;
 
+    private int score = 0;
+
+    private int maxPositionY = 0;
+    private int currentPositionY = 0;
+
     public Player(String playerName, String lives, String character) {
         setPlayerName(playerName);
         this.lives = lives;
@@ -61,5 +66,25 @@ public class Player {
 
     public void setCharacter(String character) {
         this.character = character;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+    public void setCurrentPositionY(int y) {
+        currentPositionY = y;
+    }
+    public int getCurrentPositionY() {
+        return currentPositionY;
+    }
+    public void setMaxPositionY(int y) {
+        maxPositionY = y;
+    }
+    public int getMaxPositionY() {
+        return maxPositionY;
     }
 }
