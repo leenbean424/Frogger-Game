@@ -16,6 +16,12 @@ public class Player {
         this.character = character;
     }
 
+    public Player() {
+        setPlayerName("default");
+        this.lives = "3";
+        this.character = "1";
+    }
+
     public String getPlayerName() {
         return playerName;
     }
