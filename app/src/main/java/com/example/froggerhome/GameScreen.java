@@ -60,6 +60,16 @@ public class GameScreen extends AppCompatActivity {
             //delay that controls how often each callback is made
             timerHandler.postDelayed(this, 50);
 
+           if (carImage1.getX() >  1400) {
+               carImage1.setX(-300);
+           }
+           if (carImage2.getX() < -300) {
+               carImage2.setX(1400);
+           }
+           if (carImage3.getX() > 1400) {
+               carImage3.setX(-300);
+           }
+
         }
     };
 
@@ -112,7 +122,6 @@ public class GameScreen extends AppCompatActivity {
         //calling timerhandler function
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
-
 
 
         screen = (LinearLayout) findViewById(R.id.screen);

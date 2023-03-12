@@ -211,7 +211,7 @@
             android:id="@+id/car3"
             android:layout_width="90dp"
             android:layout_height="100dp"
-            android:translationY="-368dp"
+            android:translationY= "-368dp"
             android:visibility="visible"
             app:layout_constraintTop_toBottomOf="parent"
             app:srcCompat="@drawable/cars3"
