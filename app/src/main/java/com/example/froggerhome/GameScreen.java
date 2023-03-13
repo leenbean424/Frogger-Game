@@ -88,11 +88,16 @@ public class GameScreen extends AppCompatActivity {
         playerName.setText(player.getPlayerName());
 
         difficultyLevel = (TextView) findViewById(R.id.difficulty_level);
-        if (InitialConfig.getDifficulty().equals("Hard")) {
-            difficultyLevel.setText("Hard");
-        } else if (InitialConfig.getDifficulty().equals("Medium")) {
-            difficultyLevel.setText("Medium");
-        } else if (InitialConfig.getDifficulty().equals("Easy")) {
+
+        try {
+            if (InitialConfig.getDifficulty().equals("Hard")) {
+                difficultyLevel.setText("Hard");
+            } else if (InitialConfig.getDifficulty().equals("Medium")) {
+                difficultyLevel.setText("Medium");
+            } else if (InitialConfig.getDifficulty().equals("Easy")) {
+                difficultyLevel.setText("Easy");
+            }
+        } catch (Exception e) {
             difficultyLevel.setText("Easy");
         }
 
@@ -103,14 +108,18 @@ public class GameScreen extends AppCompatActivity {
         score.setText(String.valueOf(player.getScore()));
 
         sprite = (ImageView) findViewById(R.id.sprite);
-        if (player.getCharacter().equals("1")) {
-            sprite.setImageResource(R.drawable.frog_char_1);
-        } else if (player.getCharacter().equals("2")) {
-            sprite.setImageResource(R.drawable.frog_char_2);
-        } else if (player.getCharacter().equals("3")) {
-            sprite.setImageResource(R.drawable.frog_char_3);
-        }
 
+        try {
+            if (player.getCharacter().equals("1")) {
+                sprite.setImageResource(R.drawable.frog_char_1);
+            } else if (player.getCharacter().equals("2")) {
+                sprite.setImageResource(R.drawable.frog_char_2);
+            } else if (player.getCharacter().equals("3")) {
+                sprite.setImageResource(R.drawable.frog_char_3);
+            }
+        } catch (Exception e) {
+            sprite.setImageResource(R.drawable.frog_char_1);
+        }
 
         //set up of cars images
         carImage1 = (ImageView) findViewById(R.id.car1);
@@ -128,7 +137,6 @@ public class GameScreen extends AppCompatActivity {
 
 
         screen.setOnTouchListener(new OnSwipeListener(GameScreen.this) {
-
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 return super.onTouch(v, event);
@@ -136,64 +144,96 @@ public class GameScreen extends AppCompatActivity {
 
             @Override
             public void onSwipeUp() { // goes up
-                if (sprite.getY() < 1902.0) {
-                    sprite.setRotation(180);
-                    sprite.setY(sprite.getY() + 100);
-                    player.setCurrentPositionY(player.getCurrentPositionY() - 1);
-                }
-                if (player.getCurrentPositionY() > player.getMaxPositionY()) {
-                    player.setMaxPositionY(player.getCurrentPositionY());
-                    if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
-                        player.setScore(player.getScore() + 20);
-                    } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
-                        player.setScore(player.getScore() + 30);
-                    } else {
-                        player.setScore(player.getScore() + 10);
-                    }
-                    score.setText(((Integer)player.getScore()).toString());
-                }
+                swipeAction(0);
             }
 
             @Override
             public void onSwipeDown() { // goes down
-                if (sprite.getY() > 3.0) {
-                    sprite.setRotation(0);
-                    sprite.setY(sprite.getY() - 100);
-                    player.setCurrentPositionY(player.getCurrentPositionY() + 1);
-                }
-                if (player.getCurrentPositionY() > player.getMaxPositionY()) {
-                    player.setMaxPositionY(player.getCurrentPositionY());
-                    if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
-                        player.setScore(player.getScore() + 20);
-                    } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
-                        player.setScore(player.getScore() + 30);
-                    } else {
-                        player.setScore(player.getScore() + 10);
-                    }
-                    score.setText(((Integer)player.getScore()).toString());
-                }
+                swipeAction(2);
             }
 
             @Override
             public void onSwipeLeft() { // goes left
-                if (sprite.getX() - 100 > 3) {
-                    sprite.setRotation(270);
-                    sprite.setX(sprite.getX() - 100);
-                }
+                swipeAction(3);
             }
 
             @Override
             public void onSwipeRight() { // goes right
-                if (sprite.getX() + 100 < 1334) {
-                    sprite.setRotation(90);
-                    sprite.setX(sprite.getX() + 100);
-                }
+                swipeAction(1);
             }
 
         });
-
     }
 
+    public void swipeAction(int action) {
+        switch (action) {
+            case 0:
+                swipeUpAction();
+                break;
+            case 1:
+                swipeRightAction();
+                break;
+            case 2:
+                swipeDownAction();
+                break;
+            case 3:
+                swipeLeftAction();
+                break;
+            default: break;
+        }
+    }
+
+    private void swipeRightAction() {
+        if (sprite.getX() + 100 < 1334) {
+            sprite.setRotation(90);
+            sprite.setX(sprite.getX() + 100);
+        }
+    }
+
+    private void swipeLeftAction() {
+        if (sprite.getX() - 100 > 3) {
+            sprite.setRotation(270);
+            sprite.setX(sprite.getX() - 100);
+        }
+    }
+
+    private void swipeDownAction() {
+        if (sprite.getY() > 3.0) {
+            sprite.setRotation(0);
+            sprite.setY(sprite.getY() - 100);
+            player.setCurrentPositionY(player.getCurrentPositionY() + 1);
+        }
+        if (player.getCurrentPositionY() > player.getMaxPositionY()) {
+            player.setMaxPositionY(player.getCurrentPositionY());
+            if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
+                player.setScore(player.getScore() + 20);
+            } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
+                player.setScore(player.getScore() + 30);
+            } else {
+                player.setScore(player.getScore() + 10);
+            }
+            score.setText(((Integer)player.getScore()).toString());
+        }
+    }
+
+    private void swipeUpAction() {
+        if (sprite.getY() < 1902.0) {
+            sprite.setRotation(180);
+            sprite.setY(sprite.getY() + 100);
+            player.setCurrentPositionY(player.getCurrentPositionY() - 1);
+        }
+        if (player.getCurrentPositionY() > player.getMaxPositionY()) {
+            player.setMaxPositionY(player.getCurrentPositionY());
+            if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
+                player.setScore(player.getScore() + 20);
+            } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
+                player.setScore(player.getScore() + 30);
+            } else {
+                player.setScore(player.getScore() + 10);
+            }
+            score.setText(((Integer)player.getScore()).toString());
+        }
+    }
 
 
 }
