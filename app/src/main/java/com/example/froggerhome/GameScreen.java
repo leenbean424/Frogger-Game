@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -53,25 +54,41 @@ public class GameScreen extends AppCompatActivity {
 
 
             //moving cars
-            carImage1.setX(carImage1.getX() + 10);
-            carImage2.setX(carImage2.getX() - 20);
-            carImage3.setX(carImage3.getX() + 16);
+            runCar(carImage1, carImage1.getX(), 10);
+            runCar(carImage2, carImage2.getX(), -20);
+            runCar(carImage3, carImage3.getX(), 16);
 
             //delay that controls how often each callback is made
             timerHandler.postDelayed(this, 50);
 
-           if (carImage1.getX() >  1400) {
-               carImage1.setX(-300);
-           }
-           if (carImage2.getX() < -300) {
-               carImage2.setX(1400);
-           }
-           if (carImage3.getX() > 1400) {
-               carImage3.setX(-300);
-           }
+            isCarForwardLimit(carImage1, -300, carImage1.getX(), 1400);
+            isCarBackwardLimit(carImage2, 1400, carImage2.getX(), -300);
+            isCarForwardLimit(carImage3, -300, carImage3.getX(), 1400);
+
 
         }
     };
+
+    public float isCarForwardLimit(ImageView car, float originalPos, float curr, float limit) {
+        if (curr > limit) {
+            car.setX(originalPos);
+            return originalPos;
+        }
+        return curr;
+    }
+    public float isCarBackwardLimit(ImageView car, float originalPos, float curr, float limit) {
+        if (curr < limit) {
+            car.setX(originalPos);
+            return originalPos;
+        }
+        return curr;
+    }
+
+    public float runCar(ImageView carImg, float originalPos, float additionalPos) {
+        float newPos = originalPos + additionalPos;
+        carImg.setX(newPos);
+        return additionalPos;
+    }
 
 
     @SuppressLint("MissingInflatedId")
@@ -165,39 +182,39 @@ public class GameScreen extends AppCompatActivity {
         });
     }
 
-    public void swipeAction(int action) {
+    public int swipeAction(int action) {
         switch (action) {
             case 0:
-                swipeUpAction();
-                break;
+                return swipeUpAction();
             case 1:
-                swipeRightAction();
-                break;
+                return swipeRightAction();
             case 2:
-                swipeDownAction();
-                break;
+                return swipeDownAction();
             case 3:
-                swipeLeftAction();
-                break;
-            default: break;
+                return swipeLeftAction();
+            default:
+                return 0;
         }
     }
 
-    private void swipeRightAction() {
+    private int swipeRightAction() {
         if (sprite.getX() + 100 < 1334) {
             sprite.setRotation(90);
             sprite.setX(sprite.getX() + 100);
         }
+        return (Integer)player.getScore();
     }
 
-    private void swipeLeftAction() {
+    private int swipeLeftAction() {
         if (sprite.getX() - 100 > 3) {
             sprite.setRotation(270);
             sprite.setX(sprite.getX() - 100);
         }
+        return (Integer)player.getScore();
     }
 
-    private void swipeDownAction() {
+    private int swipeDownAction() {
+        int addedScore = 0;
         if (sprite.getY() > 3.0) {
             sprite.setRotation(0);
             sprite.setY(sprite.getY() - 100);
@@ -206,17 +223,20 @@ public class GameScreen extends AppCompatActivity {
         if (player.getCurrentPositionY() > player.getMaxPositionY()) {
             player.setMaxPositionY(player.getCurrentPositionY());
             if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
-                player.setScore(player.getScore() + 20);
+                addedScore = 20;
             } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
-                player.setScore(player.getScore() + 30);
+                addedScore = 30;
             } else {
-                player.setScore(player.getScore() + 10);
+                addedScore = 10;
             }
+            player.setScore(player.getScore() + addedScore);
             score.setText(((Integer)player.getScore()).toString());
         }
+        return (Integer)player.getScore();
     }
 
-    private void swipeUpAction() {
+    private int swipeUpAction() {
+        int addedScore = 0;
         if (sprite.getY() < 1902.0) {
             sprite.setRotation(180);
             sprite.setY(sprite.getY() + 100);
@@ -225,14 +245,16 @@ public class GameScreen extends AppCompatActivity {
         if (player.getCurrentPositionY() > player.getMaxPositionY()) {
             player.setMaxPositionY(player.getCurrentPositionY());
             if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
-                player.setScore(player.getScore() + 20);
+                addedScore = 20;
             } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
-                player.setScore(player.getScore() + 30);
+                addedScore = 30;
             } else {
-                player.setScore(player.getScore() + 10);
+                addedScore = 10;
             }
+            player.setScore(player.getScore() + addedScore);
             score.setText(((Integer)player.getScore()).toString());
         }
+        return (Integer)player.getScore();
     }
 
 

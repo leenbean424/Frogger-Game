@@ -1,20 +1,24 @@
 package com.example.froggerhome;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
+import static org.mockito.Mockito.when;
+
+import android.widget.ImageView;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+
 
 import java.util.Random;
 
-@RunWith(MockitoJUnitRunner.class)
+
 public class JunitTestSprint3 {
 
     private GameScreen gameScreen;
@@ -22,6 +26,46 @@ public class JunitTestSprint3 {
     @Before
     public void init() {
         gameScreen = Mockito.mock(GameScreen.class);
+    }
+
+    @DisplayName("isCarMoveForwardTouchLimit")
+    @Test
+    public void isCarMoveForwardTouchLimit() throws Exception {
+        ImageView car1 = new ImageView(null);
+        when(gameScreen.isCarForwardLimit(car1, -300.0f, 920.0f, 900.0f)).thenReturn(-300.0f);
+        verify(gameScreen, atMost(1)).isCarForwardLimit(car1, -300.0f, 920.0f, 900.0f);
+    }
+
+    @DisplayName("isCarMoveBackwardTouchLimit")
+    @Test
+    public void isCarMoveBackwardTouchLimit() throws Exception {
+        ImageView car2 = new ImageView(null);
+        when(gameScreen.isCarForwardLimit(car2, 1400.0f, -320.0f, -300.0f)).thenReturn(1400.0f);
+        verify(gameScreen, atMost(1)).isCarBackwardLimit(car2, 1400.0f, -320.0f, -300.0f);
+    }
+
+    @DisplayName("car1Moving")
+    @Test
+    public void car1Moving() throws Exception {
+        ImageView car1 = new ImageView(null);
+        when(gameScreen.runCar(car1, 0, 10.0f)).thenReturn(10.0f);
+        verify(gameScreen, atMost(1)).runCar(car1, 0, 10.0f);
+    }
+
+    @DisplayName("car2Moving")
+    @Test
+    public void car2Moving() throws Exception {
+        ImageView car2 = new ImageView(null);
+        when(gameScreen.runCar(car2, 100, -20.0f)).thenReturn(80.0f);
+        verify(gameScreen, atMost(1)).runCar(car2, 100, -20.0f);
+    }
+
+    @DisplayName("car3Moving")
+    @Test
+    public void car3Moving() throws Exception {
+        ImageView car3 = new ImageView(null);
+        when(gameScreen.runCar(car3, 400, 16.0f)).thenReturn(384.0f);
+        verify(gameScreen, atMost(1)).runCar(car3, 400, 16.0f);
     }
 
     @DisplayName("playerMoveUp")
@@ -37,7 +81,7 @@ public class JunitTestSprint3 {
 
     @DisplayName("playerMoveDown")
     @Test
-    public void playerMoveDown() throws Exception {
+    public void playerMove2Down() throws Exception {
         gameScreen.swipeAction(2);
         verify(gameScreen, atLeast(1)).swipeAction(2);
         reset();
@@ -75,14 +119,11 @@ public class JunitTestSprint3 {
         for (int i = 0; i < walk.length; i++) {
             if (walk[i] == 0) {
                 count0++;
-            }
-            else if (walk[i] == 1) {
+            } else if (walk[i] == 1) {
                 count1++;
-            }
-            else if (walk[i] == 2) {
+            } else if (walk[i] == 2) {
                 count2++;
-            }
-            else if (walk[i] == 3) {
+            } else if (walk[i] == 3) {
                 count3++;
             }
         }
