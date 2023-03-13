@@ -16,10 +16,10 @@ public class Player {
         this.character = character;
     }
 
-    public Player() {
-        setPlayerName("default");
-        this.lives = "3";
-        this.character = "1";
+    public Player(Player player) {
+        setPlayerName(player.getPlayerName());
+        this.lives = player.getLives();
+        this.character = player.getCharacter();
     }
 
     public String getPlayerName() {
