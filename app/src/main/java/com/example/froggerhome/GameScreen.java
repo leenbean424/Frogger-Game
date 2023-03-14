@@ -4,9 +4,9 @@ package com.example.froggerhome;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+
 import android.content.Intent;
-import android.media.Image;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import java.text.BreakIterator;
 
 
 
@@ -37,11 +36,11 @@ public class GameScreen extends AppCompatActivity {
 
     //timer starts at 0
     //TextView timerTextView;
-    long startTime = 0;
+    private long startTime = 0;
 
     //runs without a timer by reposting this handler at the end of the runnable
-    Handler timerHandler = new Handler(Looper.getMainLooper());
-    Runnable timerRunnable = new Runnable() {
+    private Handler timerHandler = new Handler(Looper.getMainLooper());
+    private Runnable timerRunnable = new Runnable() {
 
         @Override
         public void run() {
@@ -76,6 +75,7 @@ public class GameScreen extends AppCompatActivity {
         }
         return curr;
     }
+
     public float isCarBackwardLimit(ImageView car, float originalPos, float curr, float limit) {
         if (curr < limit) {
             car.setX(originalPos);
@@ -144,7 +144,6 @@ public class GameScreen extends AppCompatActivity {
         carImage3 = (ImageView) findViewById(R.id.car3);
 
 
-
         //calling timerhandler function
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
@@ -184,16 +183,16 @@ public class GameScreen extends AppCompatActivity {
 
     public int swipeAction(int action) {
         switch (action) {
-            case 0:
-                return swipeUpAction();
-            case 1:
-                return swipeRightAction();
-            case 2:
-                return swipeDownAction();
-            case 3:
-                return swipeLeftAction();
-            default:
-                return 0;
+        case 0:
+            return swipeUpAction();
+        case 1:
+            return swipeRightAction();
+        case 2:
+            return swipeDownAction();
+        case 3:
+            return swipeLeftAction();
+        default:
+            return 0;
         }
     }
 
@@ -202,7 +201,7 @@ public class GameScreen extends AppCompatActivity {
             sprite.setRotation(90);
             sprite.setX(sprite.getX() + 100);
         }
-        return (Integer)player.getScore();
+        return (Integer) player.getScore();
     }
 
     private int swipeLeftAction() {
@@ -210,7 +209,7 @@ public class GameScreen extends AppCompatActivity {
             sprite.setRotation(270);
             sprite.setX(sprite.getX() - 100);
         }
-        return (Integer)player.getScore();
+        return (Integer) player.getScore();
     }
 
     private int swipeDownAction() {
@@ -230,9 +229,9 @@ public class GameScreen extends AppCompatActivity {
                 addedScore = 10;
             }
             player.setScore(player.getScore() + addedScore);
-            score.setText(((Integer)player.getScore()).toString());
+            score.setText(((Integer) player.getScore()).toString());
         }
-        return (Integer)player.getScore();
+        return (Integer) player.getScore();
     }
 
     private int swipeUpAction() {
@@ -252,9 +251,9 @@ public class GameScreen extends AppCompatActivity {
                 addedScore = 10;
             }
             player.setScore(player.getScore() + addedScore);
-            score.setText(((Integer)player.getScore()).toString());
+            score.setText(((Integer) player.getScore()).toString());
         }
-        return (Integer)player.getScore();
+        return (Integer) player.getScore();
     }
 
 
