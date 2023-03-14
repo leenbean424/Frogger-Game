@@ -8,7 +8,7 @@ import android.view.View.OnTouchListener;
 
 
 import androidx.annotation.NonNull;
-public class OnSwipeListener implements OnTouchListener{
+public class OnSwipeListener implements OnTouchListener {
 
     private GestureDetector gestureDetector;
 

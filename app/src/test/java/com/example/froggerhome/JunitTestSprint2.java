@@ -23,13 +23,13 @@ public class JunitTestSprint2 {
 
         Mockito.when(gestureListener.onSwipe(right1)).thenReturn(true);
         assertEquals(expected, right1);
-        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
-                ,gestureListener.onSwipe(right1));
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected)),
+                gestureListener.onSwipe(right1));
 
         Mockito.when(gestureListener.onSwipe(right2)).thenReturn(true);
         assertEquals(expected, right2);
-        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
-                ,gestureListener.onSwipe(right2));
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected)),
+                gestureListener.onSwipe(right2));
     }
 
     @DisplayName("leftDirectionTest")
@@ -44,13 +44,13 @@ public class JunitTestSprint2 {
 
         Mockito.when(gestureListener.onSwipe(left1)).thenReturn(true);
         assertEquals(left1, expected);
-        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
-                ,gestureListener.onSwipe(left1));
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected)),
+                gestureListener.onSwipe(left1));
 
         Mockito.when(gestureListener.onSwipe(left2)).thenReturn(true);
         assertEquals(left2, expected);
-        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
-                ,gestureListener.onSwipe(left2));
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected)),
+                gestureListener.onSwipe(left2));
     }
 
     @DisplayName("upDirectionTest")
@@ -65,13 +65,13 @@ public class JunitTestSprint2 {
 
         Mockito.when(gestureListener.onSwipe(up1)).thenReturn(true);
         assertEquals(up1, expected);
-        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
-                ,gestureListener.onSwipe(up1));
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected)),
+                gestureListener.onSwipe(up1));
 
         Mockito.when(gestureListener.onSwipe(up2)).thenReturn(true);
         assertEquals(up2, expected);
-        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
-                ,gestureListener.onSwipe(up2));
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected)),
+                gestureListener.onSwipe(up2));
     }
 
     @DisplayName("downDirectionTest")
@@ -86,13 +86,13 @@ public class JunitTestSprint2 {
 
         Mockito.when(gestureListener.onSwipe(down1)).thenReturn(true);
         assertEquals(down1, expected);
-        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
-                ,gestureListener.onSwipe(down1));
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected)),
+                gestureListener.onSwipe(down1));
 
         Mockito.when(gestureListener.onSwipe(down2)).thenReturn(true);
         assertEquals(down2, expected);
-        assertTrue(String.valueOf(gestureListener.onSwipe(expected))
-                ,gestureListener.onSwipe(down2));
+        assertTrue(String.valueOf(gestureListener.onSwipe(expected)),
+                gestureListener.onSwipe(down2));
     }
 
 }

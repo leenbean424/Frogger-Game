@@ -1,6 +1,5 @@
 package com.example.froggerhome;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.reset;
@@ -32,16 +31,20 @@ public class JunitTestSprint3 {
     @Test
     public void isCarMoveForwardTouchLimit() throws Exception {
         ImageView car1 = new ImageView(null);
-        when(gameScreen.isCarForwardLimit(car1, -300.0f, 920.0f, 900.0f)).thenReturn(-300.0f);
-        verify(gameScreen, atMost(1)).isCarForwardLimit(car1, -300.0f, 920.0f, 900.0f);
+        when(gameScreen.isCarForwardLimit(car1, -300.0f, 920.0f,
+                900.0f)).thenReturn(-300.0f);
+        verify(gameScreen, atMost(1)).isCarForwardLimit(car1,
+                -300.0f, 920.0f, 900.0f);
     }
 
     @DisplayName("isCarMoveBackwardTouchLimit")
     @Test
     public void isCarMoveBackwardTouchLimit() throws Exception {
         ImageView car2 = new ImageView(null);
-        when(gameScreen.isCarForwardLimit(car2, 1400.0f, -320.0f, -300.0f)).thenReturn(1400.0f);
-        verify(gameScreen, atMost(1)).isCarBackwardLimit(car2, 1400.0f, -320.0f, -300.0f);
+        when(gameScreen.isCarForwardLimit(car2, 1400.0f, -320.0f,
+                -300.0f)).thenReturn(1400.0f);
+        verify(gameScreen, atMost(1)).isCarBackwardLimit(car2,
+                1400.0f, -320.0f, -300.0f);
     }
 
     @DisplayName("car1Moving")
@@ -49,7 +52,8 @@ public class JunitTestSprint3 {
     public void car1Moving() throws Exception {
         ImageView car1 = new ImageView(null);
         when(gameScreen.runCar(car1, 0, 10.0f)).thenReturn(10.0f);
-        verify(gameScreen, atMost(1)).runCar(car1, 0, 10.0f);
+        verify(gameScreen, atMost(1)).runCar(car1, 0,
+                10.0f);
     }
 
     @DisplayName("car2Moving")
@@ -57,7 +61,8 @@ public class JunitTestSprint3 {
     public void car2Moving() throws Exception {
         ImageView car2 = new ImageView(null);
         when(gameScreen.runCar(car2, 100, -20.0f)).thenReturn(80.0f);
-        verify(gameScreen, atMost(1)).runCar(car2, 100, -20.0f);
+        verify(gameScreen, atMost(1)).runCar(car2,
+                100, -20.0f);
     }
 
     @DisplayName("car3Moving")
@@ -65,7 +70,8 @@ public class JunitTestSprint3 {
     public void car3Moving() throws Exception {
         ImageView car3 = new ImageView(null);
         when(gameScreen.runCar(car3, 400, 16.0f)).thenReturn(384.0f);
-        verify(gameScreen, atMost(1)).runCar(car3, 400, 16.0f);
+        verify(gameScreen, atMost(1)).runCar(car3, 400,
+                16.0f);
     }
 
     @DisplayName("playerMoveUp")
@@ -107,7 +113,7 @@ public class JunitTestSprint3 {
     @Test
     public void randomWalk() throws Exception {
         Random rn = new Random();
-        int walk[] = new int[10];
+        int[] walk = new int[10];
         for (int i = 0; i < 10; i++) {
             walk[i] = rn.nextInt(4);
             gameScreen.swipeAction(walk[i]);
