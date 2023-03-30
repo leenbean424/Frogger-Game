@@ -34,6 +34,7 @@ public class GameScreen extends AppCompatActivity {
     private LinearLayout screen;
 
 
+
     //timer starts at 0
     //TextView timerTextView;
     private long startTime = 0;
@@ -106,20 +107,25 @@ public class GameScreen extends AppCompatActivity {
 
         difficultyLevel = (TextView) findViewById(R.id.difficulty_level);
 
+        livesCount = (TextView) findViewById(R.id.lives_count);
+        livesCount.setText(player.getLives());
+
         try {
             if (InitialConfig.getDifficulty().equals("Hard")) {
                 difficultyLevel.setText("Hard");
+                livesCount.setText(player.selectDifficulty("Hard"));
             } else if (InitialConfig.getDifficulty().equals("Medium")) {
                 difficultyLevel.setText("Medium");
+                livesCount.setText(player.selectDifficulty("Medium"));
             } else if (InitialConfig.getDifficulty().equals("Easy")) {
                 difficultyLevel.setText("Easy");
+                livesCount.setText(player.selectDifficulty("Easy"));
             }
         } catch (Exception e) {
             difficultyLevel.setText("Easy");
+            livesCount.setText(player.selectDifficulty("Easy"));
         }
 
-        livesCount = (TextView) findViewById(R.id.lives_count);
-        livesCount.setText(player.getLives());
 
         score = (TextView) findViewById(R.id.score_value);
         score.setText(String.valueOf(player.getScore()));
