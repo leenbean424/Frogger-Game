@@ -1,14 +1,21 @@
 package com.example.froggerhome;
 
+import android.widget.ImageView;
+
 public class Player {
     private String lives;
     private String character;
     private String playerName;
 
+    private int width = 50;
+
+    private int height = 50;
+
     private int score = 0;
 
     private int maxPositionY = 0;
     private int currentPositionY = 0;
+    private int currentPositionX = 0;
 
     public Player(String playerName, String lives, String character) {
         setPlayerName(playerName);
@@ -22,6 +29,15 @@ public class Player {
         this.character = player.getCharacter();
     }
 
+//    public boolean collision(ImageView carImg) {
+//       //if((carImg.getX() + carImg.getWidth() > this.currentPositionX) && (this.currentPositionX + 50 > carImg.getX()) && (carImg.getY() - carImg.getHeight() < this.CurrentPositionY() && this.currentPositionY - 50 < carImg.getY())){
+//        if (currentPositionY > 10) {
+//           return true;
+//       } else {
+//           return false;
+//       }
+//    }
+
     public String getPlayerName() {
         return playerName;
     }
@@ -32,6 +48,14 @@ public class Player {
 
     public String getCharacter() {
         return character;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
     public void setPlayerName(String playerName) {
@@ -86,6 +110,13 @@ public class Player {
     }
     public int getCurrentPositionY() {
         return currentPositionY;
+    }
+
+    public void setCurrentPositionX(int x) {
+        currentPositionX = x;
+    }
+    public int getCurrentPositionX() {
+        return currentPositionX;
     }
     public void setMaxPositionY(int y) {
         maxPositionY = y;

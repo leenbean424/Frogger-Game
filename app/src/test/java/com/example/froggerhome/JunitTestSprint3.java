@@ -135,6 +135,7 @@ public class JunitTestSprint3 {
         }
         verify(gameScreen, atMost(count0)).swipeAction(0);
         verify(gameScreen, atMost(count1)).swipeAction(1);
+
         verify(gameScreen, atMost(count2)).swipeAction(2);
         verify(gameScreen, atMost(count3)).swipeAction(3);
     }

@@ -58,6 +58,22 @@ public class GameScreen extends AppCompatActivity {
             runCar(carImage2, carImage2.getX(), -20);
             runCar(carImage3, carImage3.getX(), 16);
 
+            //checking for collision with cars
+            if (collision(carImage1) || (collision(carImage2)) || (collision(carImage3))){
+                System.out.println("OUCH");
+                sprite.setY(1900);
+                sprite.setX(650);
+                //player.setCurrentPositionX(0);
+                player.setCurrentPositionY(0);
+                player.setMaxPositionY(0);
+                sprite.setRotation(0);
+                player.setScore(0);
+                score.setText("0");
+                //player.setLives(String.valueOf(Integer.parseInt(player.getLives())));
+
+            }
+
+
             //delay that controls how often each callback is made
             timerHandler.postDelayed(this, 50);
 
@@ -68,6 +84,15 @@ public class GameScreen extends AppCompatActivity {
 
         }
     };
+
+    public boolean collision(ImageView carImg) {
+       if((carImg.getX() + carImg.getWidth() > sprite.getX()) && (sprite.getX() + 50 > carImg.getX()) && (carImg.getY() + carImg.getHeight() > sprite.getY()) && (sprite.getY() + 50 > carImg.getY())){
+
+           return true;
+       } else {
+           return false;
+       }
+    }
 
     public float isCarForwardLimit(ImageView car, float originalPos, float curr, float limit) {
         if (curr > limit) {
@@ -206,6 +231,7 @@ public class GameScreen extends AppCompatActivity {
         if (sprite.getX() + 100 < 1334) {
             sprite.setRotation(90);
             sprite.setX(sprite.getX() + 100);
+            player.setCurrentPositionX((int)sprite.getX());
         }
         return (Integer) player.getScore();
     }
@@ -214,6 +240,7 @@ public class GameScreen extends AppCompatActivity {
         if (sprite.getX() - 100 > 3) {
             sprite.setRotation(270);
             sprite.setX(sprite.getX() - 100);
+            player.setCurrentPositionX((int)sprite.getX());
         }
         return (Integer) player.getScore();
     }
