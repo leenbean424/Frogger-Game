@@ -263,6 +263,10 @@ public class GameScreen extends AppCompatActivity {
             } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
                 if (waterCollision(player.getCurrentPositionY())) {
                     count--;
+                    if (count < 1) {
+                        openEndGame();
+                        return (Integer) player.getScore();
+                    }
                     sprite.setY(1900);
                     sprite.setX(650);
                     player.setCurrentPositionY(0);
@@ -300,6 +304,10 @@ public class GameScreen extends AppCompatActivity {
             } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
                 if (waterCollision(player.getCurrentPositionY())) {
                     count++;
+                    if (count < 1) {
+                        openEndGame();
+                        return (Integer) player.getScore();
+                    }
                     sprite.setY(1900);
                     sprite.setX(650);
                     player.setCurrentPositionY(0);
@@ -330,4 +338,9 @@ public class GameScreen extends AppCompatActivity {
         }
     }
 
+    public void openEndGame() {
+        Intent intent = new Intent(this, EndGame.class);
+        startActivity(intent);
+        finish();
+    }
 }
