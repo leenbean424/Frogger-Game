@@ -1,12 +1,8 @@
 package com.example.froggerhome;
 
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-
 import android.content.Intent;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -17,22 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
-
-
 public class GameScreen extends AppCompatActivity {
     private TextView playerName;
     private TextView difficultyLevel;
     private TextView livesCount;
     private TextView score;
-
     private ImageView sprite;
     private ImageView carImage1;
     private ImageView carImage2;
     private ImageView carImage3;
     private Player player;
-
     private LinearLayout screen;
-
 
 
     //timer starts at 0
@@ -248,6 +239,10 @@ public class GameScreen extends AppCompatActivity {
         return (Integer) player.getScore();
     }
 
+    /**
+     * method update player's score and position when player moving down
+     * @return the player's score
+     */
     private int swipeDownAction() {
         int addedScore = 0;
         int count = Integer.parseInt(player.getLives());
@@ -289,6 +284,10 @@ public class GameScreen extends AppCompatActivity {
         return (Integer) player.getScore();
     }
 
+    /**
+     *  method update player's score and position when player moving down
+     * @return the player's score
+     */
     private int swipeUpAction() {
         int addedScore = 0;
         int count = Integer.parseInt(player.getLives());
@@ -330,6 +329,11 @@ public class GameScreen extends AppCompatActivity {
         return (Integer) player.getScore();
     }
 
+    /**
+     * waterCollision helper.
+     * @param currentPosition the player's position
+     * @return whether the player in the river or not
+     */
     public boolean waterCollision(int currentPosition) {
         if(currentPosition > 9 && currentPosition < 16) {
             return true;
@@ -338,6 +342,9 @@ public class GameScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     *  Transitions to the gameover screen.
+     */
     public void openEndGame() {
         Intent intent = new Intent(this, EndGame.class);
         startActivity(intent);
