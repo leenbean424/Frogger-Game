@@ -30,7 +30,10 @@ public class Player {
     }
 
 //    public boolean collision(ImageView carImg) {
-//       //if((carImg.getX() + carImg.getWidth() > this.currentPositionX) && (this.currentPositionX + 50 > carImg.getX()) && (carImg.getY() - carImg.getHeight() < this.CurrentPositionY() && this.currentPositionY - 50 < carImg.getY())){
+//       //if((carImg.getX() + carImg.getWidth() > this.currentPositionX)
+//       && (this.currentPositionX + 50 > carImg.getX())
+//       && (carImg.getY() - carImg.getHeight() < this.CurrentPositionY()
+//       && this.currentPositionY - 50 < carImg.getY())){
 //        if (currentPositionY > 10) {
 //           return true;
 //       } else {
