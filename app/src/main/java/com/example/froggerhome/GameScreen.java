@@ -86,7 +86,10 @@ public class GameScreen extends AppCompatActivity {
     };
 
     public boolean collision(ImageView carImg) {
-       if((carImg.getX() + carImg.getWidth() > sprite.getX()) && (sprite.getX() + 50 > carImg.getX()) && (carImg.getY() + carImg.getHeight() > sprite.getY()) && (sprite.getY() + 50 > carImg.getY())){
+       if((carImg.getX() + carImg.getWidth() > sprite.getX())
+               && (sprite.getX() + 50 > carImg.getX())
+               && (carImg.getY() + carImg.getHeight() > sprite.getY())
+               && (sprite.getY() + 50 > carImg.getY())){
 
            return true;
        } else {
@@ -247,6 +250,7 @@ public class GameScreen extends AppCompatActivity {
 
     private int swipeDownAction() {
         int addedScore = 0;
+        int count = Integer.parseInt(player.getLives());
         if (sprite.getY() > 3.0) {
             sprite.setRotation(0);
             sprite.setY(sprite.getY() - 100);
@@ -257,7 +261,21 @@ public class GameScreen extends AppCompatActivity {
             if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
                 addedScore = 20;
             } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
-                addedScore = 30;
+                if (waterCollision(player.getCurrentPositionY())) {
+                    count--;
+                    sprite.setY(1900);
+                    sprite.setX(650);
+                    player.setCurrentPositionY(0);
+                    player.setMaxPositionY(0);
+                    sprite.setRotation(0);
+                    player.setScore(0);
+                    score.setText("0");
+                    player.setLives(String.valueOf(count));
+                    livesCount.setText(player.getLives());
+                    return (Integer) player.getScore();
+                } else {
+                    addedScore = 30;
+                }
             } else {
                 addedScore = 10;
             }
@@ -269,6 +287,7 @@ public class GameScreen extends AppCompatActivity {
 
     private int swipeUpAction() {
         int addedScore = 0;
+        int count = Integer.parseInt(player.getLives());
         if (sprite.getY() < 1902.0) {
             sprite.setRotation(180);
             sprite.setY(sprite.getY() + 100);
@@ -279,7 +298,21 @@ public class GameScreen extends AppCompatActivity {
             if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
                 addedScore = 20;
             } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
-                addedScore = 30;
+                if (waterCollision(player.getCurrentPositionY())) {
+                    count++;
+                    sprite.setY(1900);
+                    sprite.setX(650);
+                    player.setCurrentPositionY(0);
+                    player.setMaxPositionY(0);
+                    sprite.setRotation(0);
+                    player.setScore(0);
+                    score.setText("0");
+                    player.setLives(String.valueOf(count));
+                    livesCount.setText(player.getLives());
+                    return (Integer) player.getScore();
+                } else {
+                    addedScore = 30;
+                }
             } else {
                 addedScore = 10;
             }
@@ -289,5 +322,12 @@ public class GameScreen extends AppCompatActivity {
         return (Integer) player.getScore();
     }
 
+    public boolean waterCollision(int currentPosition) {
+        if(currentPosition > 9 && currentPosition < 16) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 }
