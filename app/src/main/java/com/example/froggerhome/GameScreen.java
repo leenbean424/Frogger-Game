@@ -22,7 +22,7 @@ public class GameScreen extends AppCompatActivity {
     private ImageView carImage1;
     private ImageView carImage2;
     private ImageView carImage3;
-    private Player player;
+    private static Player player;
     private LinearLayout screen;
 
 
@@ -60,8 +60,11 @@ public class GameScreen extends AppCompatActivity {
                 sprite.setRotation(0);
                 player.setScore(0);
                 score.setText("0");
-                //player.setLives(String.valueOf(Integer.parseInt(player.getLives())));
-
+                player.setLives(Integer.toString(Integer.parseInt(player.getLives()) - 1));
+                livesCount.setText(player.getLives());
+                if (player.getLives().equals("0")) {
+                    openEndGame();
+                }
             }
 
 
@@ -77,15 +80,10 @@ public class GameScreen extends AppCompatActivity {
     };
 
     public boolean collision(ImageView carImg) {
-       if((carImg.getX() + carImg.getWidth() > sprite.getX())
-               && (sprite.getX() + 50 > carImg.getX())
-               && (carImg.getY() + carImg.getHeight() > sprite.getY())
-               && (sprite.getY() + 50 > carImg.getY())){
-
-           return true;
-       } else {
-           return false;
-       }
+        return (carImg.getX() + carImg.getWidth() > sprite.getX())
+                && (sprite.getX() + 50 > carImg.getX())
+                && (carImg.getY() + carImg.getHeight() > sprite.getY())
+                && (sprite.getY() + 50 > carImg.getY());
     }
 
     public float isCarForwardLimit(ImageView car, float originalPos, float curr, float limit) {
@@ -130,15 +128,19 @@ public class GameScreen extends AppCompatActivity {
         livesCount.setText(player.getLives());
 
         try {
-            if (InitialConfig.getDifficulty().equals("Hard")) {
-                difficultyLevel.setText("Hard");
-                livesCount.setText(player.selectDifficulty("Hard"));
-            } else if (InitialConfig.getDifficulty().equals("Medium")) {
-                difficultyLevel.setText("Medium");
-                livesCount.setText(player.selectDifficulty("Medium"));
-            } else if (InitialConfig.getDifficulty().equals("Easy")) {
-                difficultyLevel.setText("Easy");
-                livesCount.setText(player.selectDifficulty("Easy"));
+            switch (InitialConfig.getDifficulty()) {
+                case "Hard":
+                    difficultyLevel.setText("Hard");
+                    livesCount.setText(player.selectDifficulty("Hard"));
+                    break;
+                case "Medium":
+                    difficultyLevel.setText("Medium");
+                    livesCount.setText(player.selectDifficulty("Medium"));
+                    break;
+                case "Easy":
+                    difficultyLevel.setText("Easy");
+                    livesCount.setText(player.selectDifficulty("Easy"));
+                    break;
             }
         } catch (Exception e) {
             difficultyLevel.setText("Easy");
@@ -152,12 +154,16 @@ public class GameScreen extends AppCompatActivity {
         sprite = (ImageView) findViewById(R.id.sprite);
 
         try {
-            if (player.getCharacter().equals("1")) {
-                sprite.setImageResource(R.drawable.frog_char_1);
-            } else if (player.getCharacter().equals("2")) {
-                sprite.setImageResource(R.drawable.frog_char_2);
-            } else if (player.getCharacter().equals("3")) {
-                sprite.setImageResource(R.drawable.frog_char_3);
+            switch (player.getCharacter()) {
+                case "1":
+                    sprite.setImageResource(R.drawable.frog_char_1);
+                    break;
+                case "2":
+                    sprite.setImageResource(R.drawable.frog_char_2);
+                    break;
+                case "3":
+                    sprite.setImageResource(R.drawable.frog_char_3);
+                    break;
             }
         } catch (Exception e) {
             sprite.setImageResource(R.drawable.frog_char_1);
@@ -335,11 +341,7 @@ public class GameScreen extends AppCompatActivity {
      * @return whether the player in the river or not
      */
     public boolean waterCollision(int currentPosition) {
-        if(currentPosition > 9 && currentPosition < 16) {
-            return true;
-        } else {
-            return false;
-        }
+        return currentPosition > 9 && currentPosition < 16;
     }
 
     /**
@@ -349,5 +351,9 @@ public class GameScreen extends AppCompatActivity {
         Intent intent = new Intent(this, EndGame.class);
         startActivity(intent);
         finish();
+    }
+
+    public static int getFinalScore() {
+        return player.getScore();
     }
 }
