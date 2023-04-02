@@ -17,6 +17,10 @@
     <string name="Difficulty" />
     <string name="Score" />
     <string name="Name" />
+    <string name="game_over">GAME OVER</string>
+    <string name="restart">Restart</string>
+    <string name="score">Score</string>
+    <string name="endscore">endScore</string>
     <string-array name="difficulty">
         <item>Easy</item>
         <item>Medium</item>
