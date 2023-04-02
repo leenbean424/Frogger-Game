@@ -110,5 +110,4 @@ public class JunitTestSprint4 {
         gameScreen.openEndGame();
         verify(gameScreen, atMost(1)).openEndGame();
     }
-
 }
