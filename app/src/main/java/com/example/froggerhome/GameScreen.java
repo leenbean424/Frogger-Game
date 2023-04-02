@@ -1,6 +1,5 @@
 package com.example.froggerhome;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 
 public class GameScreen extends AppCompatActivity {
@@ -291,7 +292,7 @@ public class GameScreen extends AppCompatActivity {
     }
 
     /**
-     *  method update player's score and position when player moving down
+     *  method update player's score and position when player moving up
      * @return the player's score
      */
     private int swipeUpAction() {
@@ -356,4 +357,5 @@ public class GameScreen extends AppCompatActivity {
     public static int getFinalScore() {
         return player.getScore();
     }
+
 }
