@@ -51,7 +51,7 @@ public class GameScreen extends AppCompatActivity {
             runCar(carImage3, carImage3.getX(), 16);
 
             //checking for collision with cars
-            if (collision(carImage1) || (collision(carImage2)) || (collision(carImage3))){
+            if (collision(carImage1) || (collision(carImage2)) || (collision(carImage3))) {
                 System.out.println("OUCH");
                 sprite.setY(1900);
                 sprite.setX(650);
@@ -130,18 +130,21 @@ public class GameScreen extends AppCompatActivity {
 
         try {
             switch (InitialConfig.getDifficulty()) {
-                case "Hard":
-                    difficultyLevel.setText("Hard");
-                    livesCount.setText(player.selectDifficulty("Hard"));
-                    break;
-                case "Medium":
-                    difficultyLevel.setText("Medium");
-                    livesCount.setText(player.selectDifficulty("Medium"));
-                    break;
-                case "Easy":
-                    difficultyLevel.setText("Easy");
-                    livesCount.setText(player.selectDifficulty("Easy"));
-                    break;
+            case "Hard":
+                difficultyLevel.setText("Hard");
+                livesCount.setText(player.selectDifficulty("Hard"));
+                break;
+            case "Medium":
+                difficultyLevel.setText("Medium");
+                livesCount.setText(player.selectDifficulty("Medium"));
+                break;
+            case "Easy":
+                difficultyLevel.setText("Easy");
+                livesCount.setText(player.selectDifficulty("Easy"));
+                break;
+            default:
+                difficultyLevel.setText("Medium");
+                livesCount.setText(player.selectDifficulty("Easy"));
             }
         } catch (Exception e) {
             difficultyLevel.setText("Easy");
@@ -156,15 +159,17 @@ public class GameScreen extends AppCompatActivity {
 
         try {
             switch (player.getCharacter()) {
-                case "1":
-                    sprite.setImageResource(R.drawable.frog_char_1);
-                    break;
-                case "2":
-                    sprite.setImageResource(R.drawable.frog_char_2);
-                    break;
-                case "3":
-                    sprite.setImageResource(R.drawable.frog_char_3);
-                    break;
+            case "1":
+                sprite.setImageResource(R.drawable.frog_char_1);
+                break;
+            case "2":
+                sprite.setImageResource(R.drawable.frog_char_2);
+                break;
+            case "3":
+                sprite.setImageResource(R.drawable.frog_char_3);
+                break;
+            default:
+                return;
             }
         } catch (Exception e) {
             sprite.setImageResource(R.drawable.frog_char_1);
@@ -232,7 +237,7 @@ public class GameScreen extends AppCompatActivity {
         if (sprite.getX() + 100 < 1334) {
             sprite.setRotation(90);
             sprite.setX(sprite.getX() + 100);
-            player.setCurrentPositionX((int)sprite.getX());
+            player.setCurrentPositionX((int) sprite.getX());
         }
         return (Integer) player.getScore();
     }
@@ -241,7 +246,7 @@ public class GameScreen extends AppCompatActivity {
         if (sprite.getX() - 100 > 3) {
             sprite.setRotation(270);
             sprite.setX(sprite.getX() - 100);
-            player.setCurrentPositionX((int)sprite.getX());
+            player.setCurrentPositionX((int) sprite.getX());
         }
         return (Integer) player.getScore();
     }
