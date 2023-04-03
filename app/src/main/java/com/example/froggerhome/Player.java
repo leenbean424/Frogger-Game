@@ -1,6 +1,5 @@
 package com.example.froggerhome;
 
-import android.widget.ImageView;
 
 public class Player {
     private String lives;
@@ -29,17 +28,17 @@ public class Player {
         this.character = player.getCharacter();
     }
 
-//    public boolean collision(ImageView carImg) {
-//       //if((carImg.getX() + carImg.getWidth() > this.currentPositionX)
-//       && (this.currentPositionX + 50 > carImg.getX())
-//       && (carImg.getY() - carImg.getHeight() < this.CurrentPositionY()
-//       && this.currentPositionY - 50 < carImg.getY())){
-//        if (currentPositionY > 10) {
-//           return true;
-//       } else {
-//           return false;
-//       }
-//    }
+    //    public boolean collision(ImageView carImg) {
+    //       //if((carImg.getX() + carImg.getWidth() > this.currentPositionX)
+    //       && (this.currentPositionX + 50 > carImg.getX())
+    //       && (carImg.getY() - carImg.getHeight() < this.CurrentPositionY()
+    //       && this.currentPositionY - 50 < carImg.getY())){
+    //        if (currentPositionY > 10) {
+    //           return true;
+    //       } else {
+    //           return false;
+    //       }
+    //    }
 
     public String getPlayerName() {
         return playerName;
