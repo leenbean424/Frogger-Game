@@ -1,9 +1,9 @@
 package com.example.froggerhome;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import android.widget.ImageView;
 
@@ -19,6 +19,7 @@ public class JunitTestSprint4 {
     private Player newPlayer;
     private Runnable newRunnable;
     private ImageView carImage1;
+
 
     @Before
     public void init() {
@@ -47,9 +48,10 @@ public class JunitTestSprint4 {
     public void isWaterDecreaseLives() throws Exception {
         newPlayer.setLives("5");
         newPlayer.setCurrentPositionY(10);
-        newRunnable.run();
         when(gameScreen.waterCollision(newPlayer.getCurrentPositionY())).thenReturn(true);
+//        newRunnable.run();
         gameScreen.swipeAction(0);
+        verify(gameScreen, atMost(3)).swipeAction(0);
         assertEquals("4", newPlayer.getLives());
     }
 
@@ -101,7 +103,7 @@ public class JunitTestSprint4 {
         assertEquals(0, newPlayer.getScore());
     }
 
-    @DisplayName("gameOverAfterLivesEnd")
+    @DisplayName("gameOverAfterCarLivesEnd")
     @Test
     public void gameOverAfterLivesEnd() throws Exception {
         newPlayer.setLives("0");
@@ -110,4 +112,41 @@ public class JunitTestSprint4 {
         gameScreen.openEndGame();
         verify(gameScreen, atMost(1)).openEndGame();
     }
+
+    @DisplayName("gameOverAfterWaterLivesEnd")
+    @Test
+    public void gameOverAfterWaterLivesEnd() throws Exception {
+        newPlayer.setLives("0");
+        when(gameScreen.waterCollision(newPlayer.getCurrentPositionY())).thenReturn(true);
+        newRunnable.run();
+        gameScreen.openEndGame();
+        verify(gameScreen, atMost(1)).openEndGame();
+    }
+    @DisplayName("decreaseTwoLivesAfterWaterCollision")
+    @Test
+    public void decreaseTwoLivesAfterWaterCollision() throws Exception {
+        newPlayer.setLives("5");
+        newPlayer.setCurrentPositionY(10);
+        when(gameScreen.waterCollision(newPlayer.getCurrentPositionY())).thenReturn(true);
+        newRunnable.run();
+        gameScreen.swipeAction(0);
+        when(gameScreen.waterCollision(newPlayer.getCurrentPositionY())).thenReturn(true);
+        newRunnable.run();
+        gameScreen.swipeAction(0);
+        assertEquals("3", newPlayer.getLives());
+    }
+
+    @DisplayName("decreaseTwoLivesAfterCarCollision")
+    @Test
+    public void decreaseTwoLivesAfterCarCollision() throws Exception {
+        newPlayer.setLives("5");
+        when(gameScreen.collision(carImage1)).thenReturn(true);
+        newRunnable.run();
+        when(gameScreen.collision(carImage1)).thenReturn(true);
+        newRunnable.run();
+        assertEquals("3", newPlayer.getLives());
+    }
+
+
+
 }
