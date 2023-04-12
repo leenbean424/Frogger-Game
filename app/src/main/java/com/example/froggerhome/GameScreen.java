@@ -290,6 +290,10 @@ public class GameScreen extends AppCompatActivity {
             } else {
                 addedScore = 10;
             }
+            if (player.getCurrentPositionY() > 18) {
+                openWinGame();
+                return (Integer) player.getScore();
+            }
             player.setScore(player.getScore() + addedScore);
             score.setText(((Integer) player.getScore()).toString());
         }
@@ -335,6 +339,10 @@ public class GameScreen extends AppCompatActivity {
             } else {
                 addedScore = 10;
             }
+            if (player.getCurrentPositionY() > 18) {
+                openWinGame();
+                return (Integer) player.getScore();
+            }
             player.setScore(player.getScore() + addedScore);
             score.setText(((Integer) player.getScore()).toString());
         }
@@ -358,6 +366,12 @@ public class GameScreen extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    public void openWinGame() {
+        Intent intent = new Intent(this,WinGame.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     public static int getFinalScore() {
         return player.getScore();
