@@ -215,6 +215,151 @@
             app:layout_constraintTop_toBottomOf="parent"
             app:srcCompat="@drawable/cars3"
             tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/log1"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:translationY="-520dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/log1"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/log2"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:translationX="170dp"
+            android:translationY="-560dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/log2"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lilly1"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationX="320dp"
+            android:translationY="-600dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/lilly"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lilly2"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationX="20dp"
+            android:translationY="-680dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/lilly"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lilly3"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationX="100dp"
+            android:translationY="-720dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/lilly"
+            tools:visibility="visible" />
+
+
+        <ImageView
+            android:id="@+id/log3"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:translationX="360dp"
+            android:translationY="-760dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/log1"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/log4"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:translationX="40dp"
+            android:translationY="-840dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/log1"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lilly4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationX="180dp"
+            android:translationY="-880dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/lilly"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/log5"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:translationX="280dp"
+            android:translationY="-920dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/log2"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lilly5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationX="40dp"
+            android:translationY="-1000dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/lilly"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lilly6"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationX="100dp"
+            android:translationY="-1040dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/lilly"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lilly7"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationX="240dp"
+            android:translationY="-1080dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/lilly"
+            tools:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/lilly8"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:translationX="340dp"
+            android:translationY="-1120dp"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@drawable/lilly"
+            tools:visibility="visible" />
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
