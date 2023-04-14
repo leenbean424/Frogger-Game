@@ -82,6 +82,19 @@ public class GameScreen extends AppCompatActivity {
             }
             moveLog(leftLogs[6], leftLogs[6].getX(), -10);
 
+            if (onLog(logImage1)) {
+                updateFrogOnLogSprite(logImage1);
+            } else if (onLog(logImage2)) {
+                updateFrogOnLogSprite(logImage2);
+            } else if (onLog(logImage3)) {
+                updateFrogOnLogSprite(logImage3);
+            } else if (onLog(logImage4)) {
+                updateFrogOnLogSprite(logImage4);
+            } else if (onLog(logImage5)) {
+                updateFrogOnLogSprite(logImage5);
+            }
+
+
 
 
             //checking for collision with cars
@@ -154,6 +167,19 @@ public class GameScreen extends AppCompatActivity {
         float newPos = originalPos + additionalPos;
         logImg.setX(newPos);
         return additionalPos;
+    }
+    public boolean onLog(ImageView logImg) {
+        if (sprite.getX() < logImg.getX() + 10 && sprite.getX() > logImg.getX() - 10
+                && sprite.getY() < logImg.getY() + 10 && sprite.getY() > logImg.getY() - 10) {
+            return true;
+        }
+        return false;
+    }
+    public void updateFrogOnLogSprite(ImageView logImg) {
+        sprite.setX(logImg.getX());
+        sprite.setY(logImg.getY());
+        player.setCurrentPositionX((int) logImg.getX());
+        player.setCurrentPositionY((int) logImg.getY());
     }
 
 
