@@ -23,8 +23,33 @@ public class GameScreen extends AppCompatActivity {
     private ImageView carImage1;
     private ImageView carImage2;
     private ImageView carImage3;
+    //logs and lilly pads moving right
+    private ImageView logImage1;
+    private ImageView logImage2;
+    private ImageView logImage4;
+    private ImageView logImage5;
+    private ImageView lillyImage1;
+    private ImageView lillyImage4;
+
+    private ImageView[] rightLogs;
+    private ImageView[] leftLogs;
+
+    //logs and lillypads moving left
+    private ImageView logImage3;
+    private ImageView lillyImage2;
+    private ImageView lillyImage3;
+    private ImageView lillyImage5;
+    private ImageView lillyImage6;
+    private ImageView lillyImage7;
+    private ImageView lillyImage8;
+
+
+
+
     private static Player player;
     private LinearLayout screen;
+
+    //private ImageView[] rightLogs = {logImage1, logImage2, logImage4, logImage5, lillyImage1, lillyImage4};
 
 
     //timer starts at 0
@@ -49,6 +74,15 @@ public class GameScreen extends AppCompatActivity {
             runCar(carImage1, carImage1.getX(), 10);
             runCar(carImage2, carImage2.getX(), -20);
             runCar(carImage3, carImage3.getX(), 16);
+
+
+            for (int i = 0; i < 6; i++) {
+                moveLog(rightLogs[i], rightLogs[i].getX(), 10);
+                moveLog(leftLogs[i], leftLogs[i].getX(), -10);
+            }
+            moveLog(leftLogs[6], leftLogs[6].getX(), -10);
+
+
 
             //checking for collision with cars
             if (collision(carImage1) || (collision(carImage2)) || (collision(carImage3))) {
@@ -75,6 +109,13 @@ public class GameScreen extends AppCompatActivity {
             isCarForwardLimit(carImage1, -300, carImage1.getX(), 1400);
             isCarBackwardLimit(carImage2, 1400, carImage2.getX(), -300);
             isCarForwardLimit(carImage3, -300, carImage3.getX(), 1400);
+
+            for (int i = 0; i < 6; i++) {
+                isCarForwardLimit(rightLogs[i], -400, rightLogs[i].getX(), 1500);
+            }
+            for (int i = 0; i < 7; i++) {
+                isCarBackwardLimit(leftLogs[i], 1500, leftLogs[i].getX(), -400);
+            }
 
 
         }
@@ -106,6 +147,12 @@ public class GameScreen extends AppCompatActivity {
     public float runCar(ImageView carImg, float originalPos, float additionalPos) {
         float newPos = originalPos + additionalPos;
         carImg.setX(newPos);
+        return additionalPos;
+    }
+
+    public float moveLog(ImageView logImg, float originalPos, float additionalPos) {
+        float newPos = originalPos + additionalPos;
+        logImg.setX(newPos);
         return additionalPos;
     }
 
@@ -179,6 +226,24 @@ public class GameScreen extends AppCompatActivity {
         carImage1 = (ImageView) findViewById(R.id.car1);
         carImage2 = (ImageView) findViewById(R.id.car2);
         carImage3 = (ImageView) findViewById(R.id.car3);
+
+        logImage1 = (ImageView) findViewById(R.id.log1);
+        logImage2 = (ImageView) findViewById(R.id.log2);
+        logImage4 = (ImageView) findViewById(R.id.log4);
+        logImage5 = (ImageView) findViewById(R.id.log5);
+        lillyImage1 = (ImageView) findViewById(R.id.lilly1);
+        lillyImage4 = (ImageView) findViewById(R.id.lilly4);
+        rightLogs = new ImageView[]{logImage1, logImage2, logImage4, logImage5, lillyImage1, lillyImage4};
+
+        logImage3 = (ImageView) findViewById(R.id.log3);
+        lillyImage2 = (ImageView) findViewById(R.id.lilly2);
+        lillyImage3 = (ImageView) findViewById(R.id.lilly3);
+        lillyImage5 = (ImageView) findViewById(R.id.lilly5);
+        lillyImage6 = (ImageView) findViewById(R.id.lilly6);
+        lillyImage7 = (ImageView) findViewById(R.id.lilly7);
+        lillyImage8 = (ImageView) findViewById(R.id.lilly8);
+        leftLogs = new ImageView[]{logImage3, lillyImage2, lillyImage3, lillyImage5, lillyImage6, lillyImage7, lillyImage8};
+
 
 
         //calling timerhandler function
@@ -290,6 +355,10 @@ public class GameScreen extends AppCompatActivity {
             } else {
                 addedScore = 10;
             }
+            if (player.getCurrentPositionY() > 18) {
+                openWinGame();
+                return (Integer) player.getScore();
+            }
             player.setScore(player.getScore() + addedScore);
             score.setText(((Integer) player.getScore()).toString());
         }
@@ -335,6 +404,10 @@ public class GameScreen extends AppCompatActivity {
             } else {
                 addedScore = 10;
             }
+            if (player.getCurrentPositionY() > 18) {
+                openWinGame();
+                return (Integer) player.getScore();
+            }
             player.setScore(player.getScore() + addedScore);
             score.setText(((Integer) player.getScore()).toString());
         }
@@ -358,6 +431,12 @@ public class GameScreen extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+    public void openWinGame() {
+        Intent intent = new Intent(this,WinGame.class);
+        startActivity(intent);
+        finish();
+    }
+
 
     public static int getFinalScore() {
         return player.getScore();

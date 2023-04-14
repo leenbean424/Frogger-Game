@@ -17,6 +17,7 @@
     <string name="Difficulty" />
     <string name="Score" />
     <string name="Name" />
+    <string name="victory">VICTORY</string>
     <string name="game_over">GAME OVER</string>
     <string name="restart">Restart</string>
     <string name="score">Score</string>
