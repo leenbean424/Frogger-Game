@@ -83,15 +83,33 @@ public class GameScreen extends AppCompatActivity {
             moveLog(leftLogs[6], leftLogs[6].getX(), -10);
 
             if (onLog(logImage1)) {
-                updateFrogOnLogSprite(logImage1);
+                updateFrogOnRightLogs(logImage1);
             } else if (onLog(logImage2)) {
-                updateFrogOnLogSprite(logImage2);
+                updateFrogOnRightLogs(logImage2);
             } else if (onLog(logImage3)) {
-                updateFrogOnLogSprite(logImage3);
+                updateFrogOnLeftLogs(logImage3);
             } else if (onLog(logImage4)) {
-                updateFrogOnLogSprite(logImage4);
+                updateFrogOnRightLogs(logImage4);
             } else if (onLog(logImage5)) {
-                updateFrogOnLogSprite(logImage5);
+                updateFrogOnRightLogs(logImage5);
+            }
+
+            if (onLilly(lillyImage1)) {
+                updateFrogOnRightLillys(lillyImage1);
+            } else if (onLilly(lillyImage2)) {
+                updateFrogOnLeftLillys(lillyImage2);
+            } else if (onLilly(lillyImage3)) {
+                updateFrogOnLeftLillys(lillyImage3);
+            } else if (onLilly(lillyImage4)) {
+                updateFrogOnRightLillys(lillyImage4);
+            } else if (onLilly(lillyImage5)) {
+                updateFrogOnLeftLillys(lillyImage5);
+            } else if (onLilly(lillyImage6)) {
+                updateFrogOnLeftLillys(lillyImage6);
+            } else if (onLilly(lillyImage7)) {
+                updateFrogOnLeftLillys(lillyImage7);
+            } else if (onLilly(lillyImage8)) {
+                updateFrogOnLeftLillys(lillyImage8);
             }
 
 
@@ -141,6 +159,26 @@ public class GameScreen extends AppCompatActivity {
                 && (sprite.getY() + 50 > carImg.getY());
     }
 
+    public boolean onLog(ImageView logImg) {
+        if (logImg.getX() + logImg.getWidth() > sprite.getX()
+                && sprite.getX() + 5 > logImg.getX()
+        && logImg.getY() + logImg.getHeight() > sprite.getY()
+        && sprite.getY() + 5 > logImg.getY()) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean onLilly(ImageView lillyImg) {
+        if (lillyImg.getX() + lillyImg.getWidth() > sprite.getX()
+                && sprite.getX() + 5 > lillyImg.getX()
+                && lillyImg.getY() + lillyImg.getHeight() > sprite.getY()
+                && sprite.getY() + 5 > lillyImg.getY()) {
+            return true;
+        }
+        return false;
+    }
+
     public float isCarForwardLimit(ImageView car, float originalPos, float curr, float limit) {
         if (curr > limit) {
             car.setX(originalPos);
@@ -168,21 +206,33 @@ public class GameScreen extends AppCompatActivity {
         logImg.setX(newPos);
         return additionalPos;
     }
-    public boolean onLog(ImageView logImg) {
-        if (sprite.getX() < logImg.getX() + 10 && sprite.getX() > logImg.getX() - 10
-                && sprite.getY() < logImg.getY() + 10 && sprite.getY() > logImg.getY() - 10) {
-            return true;
-        }
-        return false;
-    }
-    public void updateFrogOnLogSprite(ImageView logImg) {
-        sprite.setX(logImg.getX());
+
+    public void updateFrogOnRightLogs(ImageView logImg) {
+        sprite.setX(sprite.getX() + 10);
         sprite.setY(logImg.getY());
-        player.setCurrentPositionX((int) logImg.getX());
+        player.setCurrentPositionX((int) sprite.getX() + 10);
+        player.setCurrentPositionY((int) logImg.getY());
+    }
+    public void updateFrogOnLeftLogs(ImageView logImg) {
+        sprite.setX(sprite.getX() - 10);
+        sprite.setY(logImg.getY());
+        player.setCurrentPositionX((int) sprite.getX() - 10);
         player.setCurrentPositionY((int) logImg.getY());
     }
 
+    public void updateFrogOnRightLillys(ImageView lillyImg) {
+        sprite.setX(sprite.getX() + 10);
+        sprite.setY(lillyImg.getY());
+        player.setCurrentPositionX((int) sprite.getX() + 10);
+        player.setCurrentPositionY((int) lillyImg.getY());
+    }
 
+    public void updateFrogOnLeftLillys(ImageView lillyImg) {
+        sprite.setX(sprite.getX() - 10);
+        sprite.setY(lillyImg.getY());
+        player.setCurrentPositionX((int) sprite.getX() - 10);
+        player.setCurrentPositionY((int) lillyImg.getY());
+    }
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
