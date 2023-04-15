@@ -8,7 +8,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class WinGame extends AppCompatActivity {
-
+    private boolean isRestarted = false;
+    private boolean isExited = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +28,23 @@ public class WinGame extends AppCompatActivity {
         exitGame.setOnClickListener(v -> end());
     }
     public void restart() {
+        isRestarted = true;
         Intent intent = new Intent(this, InitialConfig.class);
         startActivity(intent);
     }
 
     public void end() {
+        isExited = true;
         finishAffinity();
     }
+
+    public boolean isRestarted() {
+        return isRestarted;
+    }
+
+    public boolean isExited() {
+        return isExited;
+    }
+
+
 }

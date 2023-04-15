@@ -432,6 +432,8 @@ public class GameScreen extends AppCompatActivity {
                 addedScore = 10;
             }
             if (player.getCurrentPositionY() > 18) {
+                player.setScore(player.getScore() + addedScore + 100);
+                score.setText(((Integer) player.getScore()).toString());
                 openWinGame();
                 return (Integer) player.getScore();
             }
@@ -481,6 +483,8 @@ public class GameScreen extends AppCompatActivity {
                 addedScore = 10;
             }
             if (player.getCurrentPositionY() > 18) {
+                player.setScore(player.getScore() + addedScore + 100);
+                score.setText(((Integer) player.getScore()).toString());
                 openWinGame();
                 return (Integer) player.getScore();
             }
