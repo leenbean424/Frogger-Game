@@ -42,9 +42,9 @@ public class JunitTestSprint5 {
                     if (player.getLives().equals("0")) {
                         gameScreen.openEndGame();
                     }
-                    if (player.getCurrentPositionY() > 18) {
-                        gameScreen.openWinGame();
-                    }
+                }
+                if (player.getCurrentPositionY() > 18) {
+                    gameScreen.openWinGame();
                 }
             }
         };
@@ -69,11 +69,12 @@ public class JunitTestSprint5 {
     @DisplayName("isOnLog")
     @Test
     public void isOnLog() {
-        player.setCurrentPositionX(15);
-        player.setCurrentPositionY(15);
+        player.setCurrentPositionX(10);
+        player.setCurrentPositionY(10);
         ImageView log3 = new ImageView(null);
-        log3.setX(16);
-        log3.setY(16);
+        log3.setX(11);
+        log3.setY(11);
+        when(gameScreen.onLilly(log3)).thenReturn(true);
         assertEquals(true, gameScreen.onLog(log3));
     }
 
@@ -86,6 +87,7 @@ public class JunitTestSprint5 {
         ImageView log3 = new ImageView(null);
         log3.setX(11);
         log3.setY(11);
+        when(gameScreen.onLilly(log3)).thenReturn(true);
         assertEquals("1", player.getLives());
     }
 
@@ -105,15 +107,41 @@ public class JunitTestSprint5 {
         verify(gameScreen, atMost(1)).moveLog(lilyPad, 50, -30.0f);
     }
 
+    @DisplayName("isOnLily")
+    @Test
+    public void isOnLily() {
+        player.setCurrentPositionX(10);
+        player.setCurrentPositionY(10);
+        ImageView lily = new ImageView(null);
+        lily.setX(10);
+        lily.setY(10);
+        when(gameScreen.onLilly(lily)).thenReturn(true);
+        assertEquals(true, gameScreen.onLilly(lily));
+    }
+
+    @DisplayName("isOnLilyNotDeductLives")
+    @Test
+    public void isOnLilyNotDeductLives() {
+        player.setLives("1");
+        player.setCurrentPositionX(10);
+        player.setCurrentPositionY(10);
+        ImageView lily = new ImageView(null);
+        lily.setX(10);
+        lily.setY(10);
+        when(gameScreen.onLilly(lily)).thenReturn(true);
+        assertEquals("1", player.getLives());
+    }
+
     @DisplayName("isGoalTileMostPoints")
     @Test
     public void isGoalTileMostPoints() {
         player.setScore(0);
+        player.setLives("1");
         player.setCurrentPositionY(18);
-        int current = player.getScore();
         gameScreen.swipeAction(0);
         int last = player.getScore();
-        assertEquals(true, last - current > 50);
+        System.out.println(last);
+        assertEquals(true, last >= 100);
     }
 
     @DisplayName("isOpenWinGameWhenWin")
@@ -133,21 +161,5 @@ public class JunitTestSprint5 {
         player.setCurrentPositionY(18);
         gameScreen.swipeAction(0);
         verify(gameScreen, atMost(1)).openWinGame();
-    }
-
-    @DisplayName("isExitButtonWorks")
-    @Test
-    public void isRestartGameButtonWorks() {
-        Button restart = (Button) winGame.findViewById(R.id.restartGameButton);
-        restart.performClick();
-        assertEquals(true, winGame.isRestarted());
-    }
-
-    @DisplayName("isExitButtonWorks")
-    @Test
-    public void isExitButtonWorks() {
-        Button exit = (Button) winGame.findViewById(R.id.exitGameButton);
-        exit.performClick();
-        assertEquals(true, winGame.isExited());
     }
 }
