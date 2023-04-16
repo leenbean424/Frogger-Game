@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -12,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 
 public class GameScreen extends AppCompatActivity {
     private TextView playerName;
@@ -23,36 +23,32 @@ public class GameScreen extends AppCompatActivity {
     private ImageView carImage1;
     private ImageView carImage2;
     private ImageView carImage3;
+
     //logs and lilly pads moving right
     private ImageView logImage1;
     private ImageView logImage2;
+    private ImageView logImage3;
     private ImageView logImage4;
     private ImageView logImage5;
-    private ImageView lillyImage1;
-    private ImageView lillyImage4;
 
     private ImageView[] rightLogs;
     private ImageView[] leftLogs;
 
     //logs and lillypads moving left
-    private ImageView logImage3;
+    private ImageView lillyImage1;
     private ImageView lillyImage2;
     private ImageView lillyImage3;
+    private ImageView lillyImage4;
     private ImageView lillyImage5;
     private ImageView lillyImage6;
     private ImageView lillyImage7;
     private ImageView lillyImage8;
 
-
-
+    private boolean isOnLogAndLilly = false;
 
     private static Player player;
     private LinearLayout screen;
 
-    //private ImageView[] rightLogs = {logImage1, logImage2, logImage4, logImage5, lillyImage1, lillyImage4};
-
-
-    //timer starts at 0
     //TextView timerTextView;
     private long startTime = 0;
 
@@ -62,19 +58,19 @@ public class GameScreen extends AppCompatActivity {
 
         @Override
         public void run() {
+            sprite.setZ(Float.MAX_VALUE);
+
 
             //sets up timer
             long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int) (millis / 1000);
+            int seconds = (int)(millis / 1000);
             int minutes = seconds / 60;
             seconds = seconds % 60;
-
 
             //moving cars
             runCar(carImage1, carImage1.getX(), 10);
             runCar(carImage2, carImage2.getX(), -20);
             runCar(carImage3, carImage3.getX(), 16);
-
 
             for (int i = 0; i < 6; i++) {
                 moveLog(rightLogs[i], rightLogs[i].getX(), 10);
@@ -113,8 +109,6 @@ public class GameScreen extends AppCompatActivity {
             }
 
 
-
-
             //checking for collision with cars
             if (collision(carImage1) || (collision(carImage2)) || (collision(carImage3))) {
                 System.out.println("OUCH");
@@ -133,7 +127,6 @@ public class GameScreen extends AppCompatActivity {
                 }
             }
 
-
             //delay that controls how often each callback is made
             timerHandler.postDelayed(this, 50);
 
@@ -148,32 +141,45 @@ public class GameScreen extends AppCompatActivity {
                 isCarBackwardLimit(leftLogs[i], 1500, leftLogs[i].getX(), -400);
             }
 
-
         }
     };
 
+    private boolean updateIsOnLogAndLilly() {
+        isOnLogAndLilly = onLog(logImage1) || onLog(logImage2) || onLog(logImage3) || onLog(logImage4) || onLog(logImage5) ||
+                onLilly(lillyImage1) || onLilly(lillyImage2) || onLilly(lillyImage3) || onLilly(lillyImage4) || onLilly(lillyImage5) ||
+                onLilly(lillyImage6) || onLilly(lillyImage7) || onLilly(lillyImage8);
+        return isOnLogAndLilly;
+    }
+
+    private ImageView getCurrentLogOrLilly() {
+        for (ImageView log : new ImageView[]{logImage1, logImage2, logImage3, logImage4, logImage5}) {
+            if (onLog(log)) {
+                return log;
+            }
+        }
+        for (ImageView lilly : new ImageView[]{lillyImage1, lillyImage2, lillyImage3, lillyImage4, lillyImage5, lillyImage6, lillyImage7, lillyImage8}) {
+            if (onLilly(lilly)) {
+                return lilly;
+            }
+        }
+        return null;
+    }
+
     public boolean collision(ImageView carImg) {
-        return (carImg.getX() + carImg.getWidth() > sprite.getX())
-                && (sprite.getX() + 50 > carImg.getX())
-                && (carImg.getY() + carImg.getHeight() > sprite.getY())
-                && (sprite.getY() + 50 > carImg.getY());
+        return (carImg.getX() + carImg.getWidth() > sprite.getX()) && (sprite.getX() + 50 > carImg.getX()) && (carImg.getY() + carImg.getHeight() > sprite.getY()) && (sprite.getY() + 50 > carImg.getY());
     }
 
     public boolean onLog(ImageView logImg) {
-        if (logImg.getX() + logImg.getWidth() > sprite.getX()
-                && sprite.getX() + 5 > logImg.getX()
-        && logImg.getY() + logImg.getHeight() > sprite.getY()
-        && sprite.getY() + 5 > logImg.getY()) {
+        if (logImg.getX() + logImg.getWidth() > sprite.getX() && sprite.getX() + 5 > logImg.getX() && logImg.getY() + logImg.getHeight() > sprite.getY() && sprite.getY() + 5 > logImg.getY()) {
+
             return true;
         }
         return false;
     }
 
     public boolean onLilly(ImageView lillyImg) {
-        if (lillyImg.getX() + lillyImg.getWidth() > sprite.getX()
-                && sprite.getX() + 5 > lillyImg.getX()
-                && lillyImg.getY() + lillyImg.getHeight() > sprite.getY()
-                && sprite.getY() + 5 > lillyImg.getY()) {
+        if (lillyImg.getX() + lillyImg.getWidth() > sprite.getX() && sprite.getX() + 5 > lillyImg.getX() && lillyImg.getY() + lillyImg.getHeight() > sprite.getY() && sprite.getY() + 5 > lillyImg.getY()) {
+
             return true;
         }
         return false;
@@ -211,37 +217,40 @@ public class GameScreen extends AppCompatActivity {
         sprite.setX(sprite.getX() + 10);
         sprite.setY(logImg.getY());
         player.setCurrentPositionX((int) sprite.getX() + 10);
-        player.setCurrentPositionY((int) logImg.getY());
+        // player(X,Y) is not as same as position screen(X,Y)
+        //player.setCurrentPositionY((int) logImg.getY());
     }
     public void updateFrogOnLeftLogs(ImageView logImg) {
         sprite.setX(sprite.getX() - 10);
         sprite.setY(logImg.getY());
         player.setCurrentPositionX((int) sprite.getX() - 10);
-        player.setCurrentPositionY((int) logImg.getY());
+        // player(X,Y) is not as same as position screen(X,Y)
+        //player.setCurrentPositionY((int) logImg.getY());
     }
 
     public void updateFrogOnRightLillys(ImageView lillyImg) {
         sprite.setX(sprite.getX() + 10);
         sprite.setY(lillyImg.getY());
         player.setCurrentPositionX((int) sprite.getX() + 10);
-        player.setCurrentPositionY((int) lillyImg.getY());
+        // player(X,Y) is not as same as position screen(X,Y)
+        //        player.setCurrentPositionY((int) lillyImg.getY());
     }
 
     public void updateFrogOnLeftLillys(ImageView lillyImg) {
         sprite.setX(sprite.getX() - 10);
         sprite.setY(lillyImg.getY());
         player.setCurrentPositionX((int) sprite.getX() - 10);
-        player.setCurrentPositionY((int) lillyImg.getY());
+        // player(X,Y) is not as same as position screen(X,Y)
+        //        player.setCurrentPositionY((int) lillyImg.getY());
     }
+
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_screen);
 
         Intent intent = getIntent();
-        player = new Player(intent.getStringExtra("playerName"),
-                intent.getStringExtra("playerLives"),
-                intent.getStringExtra("playerChar"));
+        player = new Player(intent.getStringExtra("playerName"), intent.getStringExtra("playerLives"), intent.getStringExtra("playerChar"));
 
         playerName = (TextView) findViewById(R.id.player_name);
         playerName.setText(player.getPlayerName());
@@ -253,27 +262,26 @@ public class GameScreen extends AppCompatActivity {
 
         try {
             switch (InitialConfig.getDifficulty()) {
-            case "Hard":
-                difficultyLevel.setText("Hard");
-                livesCount.setText(player.selectDifficulty("Hard"));
-                break;
-            case "Medium":
-                difficultyLevel.setText("Medium");
-                livesCount.setText(player.selectDifficulty("Medium"));
-                break;
-            case "Easy":
-                difficultyLevel.setText("Easy");
-                livesCount.setText(player.selectDifficulty("Easy"));
-                break;
-            default:
-                difficultyLevel.setText("Medium");
-                livesCount.setText(player.selectDifficulty("Easy"));
+                case "Hard":
+                    difficultyLevel.setText("Hard");
+                    livesCount.setText(player.selectDifficulty("Hard"));
+                    break;
+                case "Medium":
+                    difficultyLevel.setText("Medium");
+                    livesCount.setText(player.selectDifficulty("Medium"));
+                    break;
+                case "Easy":
+                    difficultyLevel.setText("Easy");
+                    livesCount.setText(player.selectDifficulty("Easy"));
+                    break;
+                default:
+                    difficultyLevel.setText("Medium");
+                    livesCount.setText(player.selectDifficulty("Easy"));
             }
-        } catch (Exception e) {
+        } catch(Exception e) {
             difficultyLevel.setText("Easy");
             livesCount.setText(player.selectDifficulty("Easy"));
         }
-
 
         score = (TextView) findViewById(R.id.score_value);
         score.setText(String.valueOf(player.getScore()));
@@ -282,19 +290,19 @@ public class GameScreen extends AppCompatActivity {
 
         try {
             switch (player.getCharacter()) {
-            case "1":
-                sprite.setImageResource(R.drawable.frog_char_1);
-                break;
-            case "2":
-                sprite.setImageResource(R.drawable.frog_char_2);
-                break;
-            case "3":
-                sprite.setImageResource(R.drawable.frog_char_3);
-                break;
-            default:
-                return;
+                case "1":
+                    sprite.setImageResource(R.drawable.frog_char_1);
+                    break;
+                case "2":
+                    sprite.setImageResource(R.drawable.frog_char_2);
+                    break;
+                case "3":
+                    sprite.setImageResource(R.drawable.frog_char_3);
+                    break;
+                default:
+                    return;
             }
-        } catch (Exception e) {
+        } catch(Exception e) {
             sprite.setImageResource(R.drawable.frog_char_1);
         }
 
@@ -309,7 +317,14 @@ public class GameScreen extends AppCompatActivity {
         logImage5 = (ImageView) findViewById(R.id.log5);
         lillyImage1 = (ImageView) findViewById(R.id.lilly1);
         lillyImage4 = (ImageView) findViewById(R.id.lilly4);
-        rightLogs = new ImageView[]{logImage1, logImage2, logImage4, logImage5, lillyImage1, lillyImage4};
+        rightLogs = new ImageView[] {
+                logImage1,
+                logImage2,
+                logImage4,
+                logImage5,
+                lillyImage1,
+                lillyImage4
+        };
 
         logImage3 = (ImageView) findViewById(R.id.log3);
         lillyImage2 = (ImageView) findViewById(R.id.lilly2);
@@ -318,23 +333,26 @@ public class GameScreen extends AppCompatActivity {
         lillyImage6 = (ImageView) findViewById(R.id.lilly6);
         lillyImage7 = (ImageView) findViewById(R.id.lilly7);
         lillyImage8 = (ImageView) findViewById(R.id.lilly8);
-        leftLogs = new ImageView[]{logImage3, lillyImage2, lillyImage3, lillyImage5, lillyImage6, lillyImage7, lillyImage8};
-
-
+        leftLogs = new ImageView[] {
+                logImage3,
+                lillyImage2,
+                lillyImage3,
+                lillyImage5,
+                lillyImage6,
+                lillyImage7,
+                lillyImage8
+        };
 
         //calling timerhandler function
         startTime = System.currentTimeMillis();
         timerHandler.postDelayed(timerRunnable, 0);
 
-
         screen = (LinearLayout) findViewById(R.id.screen);
 
-
-        screen.setOnTouchListener(new OnSwipeListener(GameScreen.this) {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return super.onTouch(v, event);
-            }
+        screen.setOnTouchListener(new OnSwipeListener(GameScreen.this) {@Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return super.onTouch(v, event);
+        }
 
             @Override
             public void onSwipeUp() { // goes up
@@ -361,16 +379,16 @@ public class GameScreen extends AppCompatActivity {
 
     public int swipeAction(int action) {
         switch (action) {
-        case 0:
-            return swipeUpAction();
-        case 1:
-            return swipeRightAction();
-        case 2:
-            return swipeDownAction();
-        case 3:
-            return swipeLeftAction();
-        default:
-            return 0;
+            case 0:
+                return swipeUpAction();
+            case 1:
+                return swipeRightAction();
+            case 2:
+                return swipeDownAction();
+            case 3:
+                return swipeLeftAction();
+            default:
+                return 0;
         }
     }
 
@@ -398,40 +416,38 @@ public class GameScreen extends AppCompatActivity {
      */
     private int swipeDownAction() {
         int addedScore = 0;
-        int count = Integer.parseInt(player.getLives());
         if (sprite.getY() > 3.0) {
-            sprite.setRotation(0);
-            sprite.setY(sprite.getY() - 100);
+
+            ImageView currentLogOrLilly = getCurrentLogOrLilly();
+            if (currentLogOrLilly != null) {
+                // The frog is on a log or lilly, update its position relative to the log or lilly
+                sprite.setY(currentLogOrLilly.getY() - 100);
+            } else {
+                sprite.setRotation(0);
+                sprite.setY(sprite.getY() - 100);
+            }
             player.setCurrentPositionY(player.getCurrentPositionY() + 1);
+
+            updateIsOnLogAndLilly();
         }
         if (player.getCurrentPositionY() > player.getMaxPositionY()) {
             player.setMaxPositionY(player.getCurrentPositionY());
+            updateIsOnLogAndLilly();
             if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
                 addedScore = 20;
-            } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
+            }
+            // water collision
+            else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {                    updateIsOnLogAndLilly();
                 if (waterCollision(player.getCurrentPositionY())) {
-                    count--;
-                    if (count < 1) {
-                        openEndGame();
-                        return (Integer) player.getScore();
-                    }
-                    sprite.setY(1900);
-                    sprite.setX(650);
-                    player.setCurrentPositionY(0);
-                    player.setMaxPositionY(0);
-                    sprite.setRotation(0);
-                    player.setScore(0);
-                    score.setText("0");
-                    player.setLives(String.valueOf(count));
-                    livesCount.setText(player.getLives());
-                    return (Integer) player.getScore();
+                    return resetGame();
+
                 } else {
                     addedScore = 30;
                 }
             } else {
                 addedScore = 10;
             }
-            if (player.getCurrentPositionY() > 18) {
+            if (player.getCurrentPositionY() > 16) { //851
                 player.setScore(player.getScore() + addedScore + 100);
                 score.setText(((Integer) player.getScore()).toString());
                 openWinGame();
@@ -449,40 +465,35 @@ public class GameScreen extends AppCompatActivity {
      */
     private int swipeUpAction() {
         int addedScore = 0;
-        int count = Integer.parseInt(player.getLives());
         if (sprite.getY() < 1902.0) {
-            sprite.setRotation(180);
-            sprite.setY(sprite.getY() + 100);
+
+            ImageView currentLogOrLilly = getCurrentLogOrLilly();
+            if (currentLogOrLilly != null) {
+                // The frog is on a log or lilly, update its position relative to the log or lilly
+                sprite.setY(currentLogOrLilly.getY() + 100);
+            } else {
+                sprite.setRotation(180);
+                sprite.setY(sprite.getY() + 100);
+            }
             player.setCurrentPositionY(player.getCurrentPositionY() - 1);
+            updateIsOnLogAndLilly();
+
         }
         if (player.getCurrentPositionY() > player.getMaxPositionY()) {
             player.setMaxPositionY(player.getCurrentPositionY());
+            updateIsOnLogAndLilly();
             if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
                 addedScore = 20;
             } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
                 if (waterCollision(player.getCurrentPositionY())) {
-                    count++;
-                    if (count < 1) {
-                        openEndGame();
-                        return (Integer) player.getScore();
-                    }
-                    sprite.setY(1900);
-                    sprite.setX(650);
-                    player.setCurrentPositionY(0);
-                    player.setMaxPositionY(0);
-                    sprite.setRotation(0);
-                    player.setScore(0);
-                    score.setText("0");
-                    player.setLives(String.valueOf(count));
-                    livesCount.setText(player.getLives());
-                    return (Integer) player.getScore();
+                    return resetGame();
                 } else {
                     addedScore = 30;
                 }
             } else {
                 addedScore = 10;
             }
-            if (player.getCurrentPositionY() > 18) {
+            if (player.getCurrentPositionY() > 16) {
                 player.setScore(player.getScore() + addedScore + 100);
                 score.setText(((Integer) player.getScore()).toString());
                 openWinGame();
@@ -491,6 +502,32 @@ public class GameScreen extends AppCompatActivity {
             player.setScore(player.getScore() + addedScore);
             score.setText(((Integer) player.getScore()).toString());
         }
+        return (Integer) player.getScore();
+    }
+
+    private Integer resetGame() {
+        int count = Integer.parseInt(player.getLives());
+
+        if (!isOnLogAndLilly &&
+                (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 14)) {
+            count--;
+            if (count < 1) {
+                openEndGame();
+                return (Integer) player.getScore();
+            }
+            sprite.setY(1900);
+            sprite.setX(650);
+            player.setCurrentPositionY(0);
+            player.setMaxPositionY(0);
+            sprite.setRotation(0);
+            player.setScore(0);
+            score.setText("0");
+            player.setLives(String.valueOf(count));
+            livesCount.setText(player.getLives());
+            isOnLogAndLilly = false;
+        }
+
+
         return (Integer) player.getScore();
     }
 
@@ -512,9 +549,9 @@ public class GameScreen extends AppCompatActivity {
         finish();
     }
     public void openWinGame() {
-        Intent intent = new Intent(this,WinGame.class);
-        startActivity(intent);
-        finish();
+                Intent intent = new Intent(this,WinGame.class);
+                startActivity(intent);
+                finish();
     }
 
 
