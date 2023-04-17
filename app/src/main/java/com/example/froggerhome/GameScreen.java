@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -157,14 +156,14 @@ public class GameScreen extends AppCompatActivity {
 
     private ImageView getCurrentLogOrLilly() {
         for (ImageView log : new ImageView[]{
-                logImage1, logImage2, logImage3, logImage4, logImage5}) {
+            logImage1, logImage2, logImage3, logImage4, logImage5}) {
             if (onLog(log)) {
                 return log;
             }
         }
         for (ImageView lilly : new ImageView[]{
-                lillyImage1, lillyImage2, lillyImage3, lillyImage4,
-                lillyImage5, lillyImage6, lillyImage7, lillyImage8}) {
+            lillyImage1, lillyImage2, lillyImage3, lillyImage4,
+            lillyImage5, lillyImage6, lillyImage7, lillyImage8}) {
             if (onLilly(lilly)) {
                 return lilly;
             }
@@ -283,21 +282,21 @@ public class GameScreen extends AppCompatActivity {
 
         try {
             switch (InitialConfig.getDifficulty()) {
-                case "Hard":
-                    difficultyLevel.setText("Hard");
-                    livesCount.setText(player.selectDifficulty("Hard"));
-                    break;
-                case "Medium":
-                    difficultyLevel.setText("Medium");
-                    livesCount.setText(player.selectDifficulty("Medium"));
-                    break;
-                case "Easy":
-                    difficultyLevel.setText("Easy");
-                    livesCount.setText(player.selectDifficulty("Easy"));
-                    break;
-                default:
-                    difficultyLevel.setText("Medium");
-                    livesCount.setText(player.selectDifficulty("Easy"));
+            case "Hard":
+                difficultyLevel.setText("Hard");
+                livesCount.setText(player.selectDifficulty("Hard"));
+                break;
+            case "Medium":
+                difficultyLevel.setText("Medium");
+                livesCount.setText(player.selectDifficulty("Medium"));
+                break;
+            case "Easy":
+                difficultyLevel.setText("Easy");
+                livesCount.setText(player.selectDifficulty("Easy"));
+                break;
+            default:
+                difficultyLevel.setText("Medium");
+                livesCount.setText(player.selectDifficulty("Easy"));
             }
         } catch (Exception e) {
             difficultyLevel.setText("Easy");
@@ -311,17 +310,17 @@ public class GameScreen extends AppCompatActivity {
 
         try {
             switch (player.getCharacter()) {
-                case "1":
-                    sprite.setImageResource(R.drawable.frog_char_1);
-                    break;
-                case "2":
-                    sprite.setImageResource(R.drawable.frog_char_2);
-                    break;
-                case "3":
-                    sprite.setImageResource(R.drawable.frog_char_3);
-                    break;
-                default:
-                    return;
+            case "1":
+                sprite.setImageResource(R.drawable.frog_char_1);
+                break;
+            case "2":
+                sprite.setImageResource(R.drawable.frog_char_2);
+                break;
+            case "3":
+                sprite.setImageResource(R.drawable.frog_char_3);
+                break;
+            default:
+                return;
             }
         } catch (Exception e) {
             sprite.setImageResource(R.drawable.frog_char_1);
@@ -338,14 +337,8 @@ public class GameScreen extends AppCompatActivity {
         logImage5 = (ImageView) findViewById(R.id.log5);
         lillyImage1 = (ImageView) findViewById(R.id.lilly1);
         lillyImage4 = (ImageView) findViewById(R.id.lilly4);
-        rightLogs = new ImageView[]{
-                logImage1,
-                logImage2,
-                logImage4,
-                logImage5,
-                lillyImage1,
-                lillyImage4
-        };
+        rightLogs = new ImageView[]{logImage1, logImage2,
+            logImage4, logImage5, lillyImage1, lillyImage4};
 
         logImage3 = (ImageView) findViewById(R.id.log3);
         lillyImage2 = (ImageView) findViewById(R.id.lilly2);
@@ -354,15 +347,8 @@ public class GameScreen extends AppCompatActivity {
         lillyImage6 = (ImageView) findViewById(R.id.lilly6);
         lillyImage7 = (ImageView) findViewById(R.id.lilly7);
         lillyImage8 = (ImageView) findViewById(R.id.lilly8);
-        leftLogs = new ImageView[]{
-                logImage3,
-                lillyImage2,
-                lillyImage3,
-                lillyImage5,
-                lillyImage6,
-                lillyImage7,
-                lillyImage8
-        };
+        leftLogs = new ImageView[]{logImage3, lillyImage2, lillyImage3,
+            lillyImage5, lillyImage6, lillyImage7, lillyImage8};
 
         //calling timerhandler function
         startTime = System.currentTimeMillis();
@@ -401,16 +387,16 @@ public class GameScreen extends AppCompatActivity {
 
     public int swipeAction(int action) {
         switch (action) {
-            case 0:
-                return swipeUpAction();
-            case 1:
-                return swipeRightAction();
-            case 2:
-                return swipeDownAction();
-            case 3:
-                return swipeLeftAction();
-            default:
-                return 0;
+        case 0:
+            return swipeUpAction();
+        case 1:
+            return swipeRightAction();
+        case 2:
+            return swipeDownAction();
+        case 3:
+            return swipeLeftAction();
+        default:
+            return 0;
         }
     }
 
@@ -458,9 +444,8 @@ public class GameScreen extends AppCompatActivity {
             updateIsOnLogAndLilly();
             if (player.getCurrentPositionY() > 2 && player.getCurrentPositionY() < 9) {
                 addedScore = 20;
-            }
-            // water collision
-            else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
+                //water collision
+            } else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
                 updateIsOnLogAndLilly();
                 if (waterCollision(player.getCurrentPositionY())) {
                     return resetGame();
@@ -533,8 +518,8 @@ public class GameScreen extends AppCompatActivity {
     private Integer resetGame() {
         int count = Integer.parseInt(player.getLives());
 
-        if (!isOnLogAndLilly &&
-                (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 14)) {
+        if (!isOnLogAndLilly
+                && (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 14)) {
             count--;
             if (count < 1) {
                 openEndGame();
