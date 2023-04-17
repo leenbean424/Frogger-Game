@@ -63,7 +63,7 @@ public class GameScreen extends AppCompatActivity {
 
             //sets up timer
             long millis = System.currentTimeMillis() - startTime;
-            int seconds = (int)(millis / 1000);
+            int seconds = (int) (millis / 1000);
             int minutes = seconds / 60;
             seconds = seconds % 60;
 
@@ -145,19 +145,26 @@ public class GameScreen extends AppCompatActivity {
     };
 
     private boolean updateIsOnLogAndLilly() {
-        isOnLogAndLilly = onLog(logImage1) || onLog(logImage2) || onLog(logImage3) || onLog(logImage4) || onLog(logImage5) ||
-                onLilly(lillyImage1) || onLilly(lillyImage2) || onLilly(lillyImage3) || onLilly(lillyImage4) || onLilly(lillyImage5) ||
-                onLilly(lillyImage6) || onLilly(lillyImage7) || onLilly(lillyImage8);
+        isOnLogAndLilly = onLog(logImage1) || onLog(logImage2)
+                || onLog(logImage3) || onLog(logImage4)
+                || onLog(logImage5) || onLilly(lillyImage1)
+                || onLilly(lillyImage2) || onLilly(lillyImage3)
+                || onLilly(lillyImage4) || onLilly(lillyImage5)
+                || onLilly(lillyImage6) || onLilly(lillyImage7)
+                || onLilly(lillyImage8);
         return isOnLogAndLilly;
     }
 
     private ImageView getCurrentLogOrLilly() {
-        for (ImageView log : new ImageView[]{logImage1, logImage2, logImage3, logImage4, logImage5}) {
+        for (ImageView log : new ImageView[]{
+                logImage1, logImage2, logImage3, logImage4, logImage5}) {
             if (onLog(log)) {
                 return log;
             }
         }
-        for (ImageView lilly : new ImageView[]{lillyImage1, lillyImage2, lillyImage3, lillyImage4, lillyImage5, lillyImage6, lillyImage7, lillyImage8}) {
+        for (ImageView lilly : new ImageView[]{
+                lillyImage1, lillyImage2, lillyImage3, lillyImage4,
+                lillyImage5, lillyImage6, lillyImage7, lillyImage8}) {
             if (onLilly(lilly)) {
                 return lilly;
             }
@@ -166,11 +173,17 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public boolean collision(ImageView carImg) {
-        return (carImg.getX() + carImg.getWidth() > sprite.getX()) && (sprite.getX() + 50 > carImg.getX()) && (carImg.getY() + carImg.getHeight() > sprite.getY()) && (sprite.getY() + 50 > carImg.getY());
+        return (carImg.getX() + carImg.getWidth() > sprite.getX())
+                && (sprite.getX() + 50 > carImg.getX())
+                && (carImg.getY() + carImg.getHeight() > sprite.getY())
+                && (sprite.getY() + 50 > carImg.getY());
     }
 
     public boolean onLog(ImageView logImg) {
-        if (logImg.getX() + logImg.getWidth() > sprite.getX() && sprite.getX() + 5 > logImg.getX() && logImg.getY() + logImg.getHeight() > sprite.getY() && sprite.getY() + 5 > logImg.getY()) {
+        if (logImg.getX() + logImg.getWidth() > sprite.getX()
+                && sprite.getX() + 5 > logImg.getX()
+                && logImg.getY() + logImg.getHeight() > sprite.getY()
+                && sprite.getY() + 5 > logImg.getY()) {
 
             return true;
         }
@@ -178,8 +191,10 @@ public class GameScreen extends AppCompatActivity {
     }
 
     public boolean onLilly(ImageView lillyImg) {
-        if (lillyImg.getX() + lillyImg.getWidth() > sprite.getX() && sprite.getX() + 5 > lillyImg.getX() && lillyImg.getY() + lillyImg.getHeight() > sprite.getY() && sprite.getY() + 5 > lillyImg.getY()) {
-
+        if (lillyImg.getX() + lillyImg.getWidth() > sprite.getX()
+                && sprite.getX() + 5 > lillyImg.getX()
+                && lillyImg.getY() + lillyImg.getHeight() > sprite.getY()
+                && sprite.getY() + 5 > lillyImg.getY()) {
             return true;
         }
         return false;
@@ -217,31 +232,35 @@ public class GameScreen extends AppCompatActivity {
         sprite.setX(sprite.getX() + 10);
         sprite.setY(logImg.getY());
         player.setCurrentPositionX((int) sprite.getX() + 10);
-        // player(X,Y) is not as same as position screen(X,Y)
-        //player.setCurrentPositionY((int) logImg.getY());
+        spriteOutOfScreen();
     }
+
     public void updateFrogOnLeftLogs(ImageView logImg) {
         sprite.setX(sprite.getX() - 10);
         sprite.setY(logImg.getY());
         player.setCurrentPositionX((int) sprite.getX() - 10);
-        // player(X,Y) is not as same as position screen(X,Y)
-        //player.setCurrentPositionY((int) logImg.getY());
+        spriteOutOfScreen();
     }
 
     public void updateFrogOnRightLillys(ImageView lillyImg) {
         sprite.setX(sprite.getX() + 10);
         sprite.setY(lillyImg.getY());
         player.setCurrentPositionX((int) sprite.getX() + 10);
-        // player(X,Y) is not as same as position screen(X,Y)
-        //        player.setCurrentPositionY((int) lillyImg.getY());
+        spriteOutOfScreen();
     }
 
     public void updateFrogOnLeftLillys(ImageView lillyImg) {
         sprite.setX(sprite.getX() - 10);
         sprite.setY(lillyImg.getY());
         player.setCurrentPositionX((int) sprite.getX() - 10);
-        // player(X,Y) is not as same as position screen(X,Y)
-        //        player.setCurrentPositionY((int) lillyImg.getY());
+        spriteOutOfScreen();
+    }
+
+    private void spriteOutOfScreen() {
+        if (sprite.getX() <= 0 || sprite.getX() >= 1430) {
+            isOnLogAndLilly = false;
+            resetGame();
+        }
     }
 
     @SuppressLint("MissingInflatedId")
@@ -250,7 +269,9 @@ public class GameScreen extends AppCompatActivity {
         setContentView(R.layout.activity_game_screen);
 
         Intent intent = getIntent();
-        player = new Player(intent.getStringExtra("playerName"), intent.getStringExtra("playerLives"), intent.getStringExtra("playerChar"));
+        player = new Player(intent.getStringExtra("playerName"),
+                intent.getStringExtra("playerLives"),
+                intent.getStringExtra("playerChar"));
 
         playerName = (TextView) findViewById(R.id.player_name);
         playerName.setText(player.getPlayerName());
@@ -278,7 +299,7 @@ public class GameScreen extends AppCompatActivity {
                     difficultyLevel.setText("Medium");
                     livesCount.setText(player.selectDifficulty("Easy"));
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             difficultyLevel.setText("Easy");
             livesCount.setText(player.selectDifficulty("Easy"));
         }
@@ -302,7 +323,7 @@ public class GameScreen extends AppCompatActivity {
                 default:
                     return;
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             sprite.setImageResource(R.drawable.frog_char_1);
         }
 
@@ -317,7 +338,7 @@ public class GameScreen extends AppCompatActivity {
         logImage5 = (ImageView) findViewById(R.id.log5);
         lillyImage1 = (ImageView) findViewById(R.id.lilly1);
         lillyImage4 = (ImageView) findViewById(R.id.lilly4);
-        rightLogs = new ImageView[] {
+        rightLogs = new ImageView[]{
                 logImage1,
                 logImage2,
                 logImage4,
@@ -333,7 +354,7 @@ public class GameScreen extends AppCompatActivity {
         lillyImage6 = (ImageView) findViewById(R.id.lilly6);
         lillyImage7 = (ImageView) findViewById(R.id.lilly7);
         lillyImage8 = (ImageView) findViewById(R.id.lilly8);
-        leftLogs = new ImageView[] {
+        leftLogs = new ImageView[]{
                 logImage3,
                 lillyImage2,
                 lillyImage3,
@@ -349,10 +370,11 @@ public class GameScreen extends AppCompatActivity {
 
         screen = (LinearLayout) findViewById(R.id.screen);
 
-        screen.setOnTouchListener(new OnSwipeListener(GameScreen.this) {@Override
-        public boolean onTouch(View v, MotionEvent event) {
-            return super.onTouch(v, event);
-        }
+        screen.setOnTouchListener(new OnSwipeListener(GameScreen.this) {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return super.onTouch(v, event);
+            }
 
             @Override
             public void onSwipeUp() { // goes up
@@ -412,6 +434,7 @@ public class GameScreen extends AppCompatActivity {
 
     /**
      * method update player's score and position when player moving down
+     *
      * @return the player's score
      */
     private int swipeDownAction() {
@@ -437,7 +460,8 @@ public class GameScreen extends AppCompatActivity {
                 addedScore = 20;
             }
             // water collision
-            else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {                    updateIsOnLogAndLilly();
+            else if (player.getCurrentPositionY() > 9 && player.getCurrentPositionY() < 16) {
+                updateIsOnLogAndLilly();
                 if (waterCollision(player.getCurrentPositionY())) {
                     return resetGame();
 
@@ -460,7 +484,8 @@ public class GameScreen extends AppCompatActivity {
     }
 
     /**
-     *  method update player's score and position when player moving up
+     * method update player's score and position when player moving up
+     *
      * @return the player's score
      */
     private int swipeUpAction() {
@@ -533,6 +558,7 @@ public class GameScreen extends AppCompatActivity {
 
     /**
      * waterCollision helper.
+     *
      * @param currentPosition the player's position
      * @return whether the player in the river or not
      */
@@ -541,19 +567,19 @@ public class GameScreen extends AppCompatActivity {
     }
 
     /**
-     *  Transitions to the gameover screen.
+     * Transitions to the gameover screen.
      */
     public void openEndGame() {
         Intent intent = new Intent(this, EndGame.class);
         startActivity(intent);
         finish();
     }
-    public void openWinGame() {
-                Intent intent = new Intent(this,WinGame.class);
-                startActivity(intent);
-                finish();
-    }
 
+    public void openWinGame() {
+        Intent intent = new Intent(this, WinGame.class);
+        startActivity(intent);
+        finish();
+    }
 
     public static int getFinalScore() {
         return player.getScore();
